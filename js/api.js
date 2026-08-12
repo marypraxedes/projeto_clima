@@ -14,13 +14,11 @@ async function fetchWeatherData(city) {
         
         const geoData = await geoResponse.json();
 
-        // CORREÇÃO: Se não houver a propriedade 'results' ou se ela estiver vazia, 
-        // significa que a cidade/planeta simplesmente não existe na base de dados!
         if (!geoData.results || !Array.isArray(geoData.results) || geoData.results.length === 0) {
             throw new Error(`Erro de Navegação: Setor desconhecido! A Força não detecta nenhum planeta chamado "${city}".`);
         }
 
-        const { latitude, longitude, name, admin1 } = geoData.results[0];
+        const { latitude, longitude, name, admin1, country } = geoData.results[0];
         
         const weatherUrl = `${API_WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,weather_code,is_day`;
         const weatherResponse = await fetch(weatherUrl);
@@ -28,7 +26,10 @@ async function fetchWeatherData(city) {
         if (!weatherResponse.ok) throw new Error("Falha na API: Erro no servidor de clima.");
 
         const weatherData = await weatherResponse.json();
-        return { city: name, state: admin1, weatherInfo: weatherData.current };
+        
+        const locationFullName = admin1 ? `${name}, ${admin1}` : `${name} (${country})`;
+
+        return { city: locationFullName, state: '', weatherInfo: weatherData.current };
 
     } catch (error) {
         if (error.name === 'TypeError' || (error.message && error.message.includes('fetch'))) {
@@ -57,7 +58,7 @@ if (typeof document !== 'undefined') {
     const themeSong = document.getElementById('audio-theme');
     const saberSith = document.getElementById('audio-sith');
     const saberJedi = document.getElementById('audio-jedi');
-    
+
     // Configura o volume da música para não estourar o ouvido
     if (themeSong) themeSong.volume = 0.4;
 
@@ -86,7 +87,7 @@ if (typeof document !== 'undefined') {
         introContent.classList.add('hidden');
         starWarsIntro.classList.remove('hidden');
         skipIntroBtn.classList.remove('hidden');
-        
+
         playAudio(themeSong); // Toca a música tema
 
         introTimeout = setTimeout(finishIntro, 14000);
@@ -126,10 +127,10 @@ if (typeof document !== 'undefined') {
 
         const info = data.weatherInfo;
         const details = getWeatherDetails(info.weather_code, info.is_day);
-        
+
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('city-name').textContent = data.state ? `${data.city} - ${data.state}` : data.city;
-        
+
         document.getElementById('temperature-value').textContent = Math.round(info.temperature_2m);
         document.getElementById('weather-description').textContent = details.desc;
         document.getElementById('weather-icon').className = `wi ${details.icon}`;
@@ -156,10 +157,10 @@ if (typeof document !== 'undefined') {
 
     searchBtn.addEventListener('click', handleSearch);
     cityInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearch(); });
-    
+
     themeToggleBtn.addEventListener('click', () => {
         isManualTheme = true;
-        
+
         if (document.body.classList.contains('light-side')) {
             document.body.className = 'dark-side';
             playAudio(saberSith); // Barulho do sabre vermelho

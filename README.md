@@ -1,27 +1,138 @@
-# ⛅ Previsão do Tempo - Star Wars Edition ⚔️
+# ⛅ Previsão do Tempo — Star Wars Edition ⚔️
 
-Este é um aplicativo web interativo de previsão do tempo desenvolvido com HTML5, CSS3 e JavaScript puro (Vanilla), construído como projeto prático para o Bootcamp da Generation Brasil. O app consome a **Open-Meteo API** para fornecer dados meteorológicos em tempo real e apresenta uma imersão completa no universo de **Star Wars**.
+> Uma aplicação web interativa de previsão do tempo inspirada no universo de **Star Wars**, desenvolvida com **HTML5, CSS3 e JavaScript Vanilla** como projeto prático do **Bootcamp da Generation Brasil**.
+
+A aplicação consome a **Open-Meteo API** para consultar dados meteorológicos e combina informações climáticas em tempo real com uma experiência visual inspirada na galáxia muito, muito distante. 🌌
 
 ---
 
-## 🚀 Funcionalidades e Diferenciais
+## ✨ Demonstração
 
-- **Abertura Cinemática (Star Wars Crawl):** Tela de introdução com a clássica trilha sonora da Marcha Imperial e o letreiro subindo pelo espaço.
-- **Efeitos Sonoros Interativos:** Sons dinâmicos de sabres de luz (Jedi e Sith) ao alternar temas e o grunhido clássico do Chewbacca ao realizar buscas.
-- **Busca Galáctica Avançada:** Pesquisa por qualquer planeta ou cidade da Terra, com tratamento de erros customizado para setores desconhecidos.
-- **Métricas Meteorológicas Completas (Opção 4):** Exibição de temperatura atual (°C), umidade relativa do ar, velocidade do vento e índice de precipitação (chuva).
-- **Tema Dinâmico e Manual:** Alternância automática baseada no horário da cidade consultada (Lado da Força / Dia vs. Lado Sombrio / Noite) ou controle manual via botão com efeitos de neon.
-- **Testes Automatizados:** Suíte completa de testes unitários desenvolvida com **Jest** e Mocks de rede.
+🔎 Pesquise uma cidade e descubra as condições climáticas atuais enquanto explora uma interface temática de Star Wars.
+
+O projeto conta com:
+
+* 🌡️ Temperatura atual
+* 💧 Umidade relativa do ar
+* 💨 Velocidade do vento
+* 🌧️ Probabilidade/índice de precipitação
+* 🌎 Busca por cidades
+* 🌞 Tema claro inspirado no **Lado da Luz**
+* 🌑 Tema escuro inspirado no **Lado Sombrio**
+* 🔊 Efeitos sonoros e animações
+* 🚀 Abertura cinematográfica inspirada no clássico *Star Wars Crawl*
+
+---
+
+## 🚀 Funcionalidades
+
+### 🌌 Abertura Cinemática
+
+A aplicação possui uma tela de introdução inspirada na clássica abertura de **Star Wars**, criando uma experiência imersiva antes do acesso à previsão do tempo.
+
+A abertura conta com:
+
+* 🎵 **Marcha Imperial** como trilha sonora;
+* ⭐ Animação inspirada no famoso *Star Wars Crawl*;
+* 🌌 Fundo espacial com estrelas;
+* 🎬 Efeito de perspectiva e movimento do texto;
+* 🚀 Transição da abertura para a aplicação principal.
+
+> **"A long time ago in a galaxy far, far away..."** 🌌
+
+A trilha sonora utilizada na abertura é a **Marcha Imperial**, criando uma introdução diretamente inspirada na atmosfera do universo Star Wars.
+
+### ⚔️ Temas da Força
+
+O usuário pode alternar entre diferentes temas visuais.
+
+A aplicação também utiliza o **horário local da cidade pesquisada** para determinar automaticamente o tema correspondente:
+
+* ☀️ **Lado da Luz** — período diurno;
+* 🌑 **Lado Sombrio** — período noturno.
+
+Também é possível alterar o tema manualmente através do botão de alternância.
+
+### 🔎 Busca de Cidades
+
+Permite pesquisar cidades e consultar suas condições meteorológicas atuais.
+
+A aplicação possui tratamento personalizado para situações como:
+
+* Campo de busca vazio;
+* Cidade não encontrada;
+* Erros na comunicação com a API;
+* Limitações de requisições.
+
+### 🌡️ Informações Meteorológicas
+
+Após uma pesquisa válida, são apresentados dados como:
+
+| Informação       | Descrição                                 |
+| ---------------- | ----------------------------------------- |
+| 🌡️ Temperatura  | Temperatura atual em °C                   |
+| 💧 Umidade       | Umidade relativa do ar                    |
+| 💨 Vento         | Velocidade do vento                       |
+| 🌧️ Precipitação | Índice de chuva                           |
+
+### 🔊 Experiência Sonora
+
+A aplicação possui efeitos sonoros integrados à interação do usuário:
+
+* ⚔️ Sons relacionados a sabres de luz;
+* 🐾 Efeito sonoro do Chewbacca durante buscas;
+* 🎵 Trilha sonora na abertura.
+
+---
+
+## 🧪 Testes Automatizados
+
+O projeto possui uma suíte de **testes unitários utilizando Jest**, incluindo mocks para as requisições externas.
+
+Os testes foram desenvolvidos para validar diferentes cenários da aplicação, como:
+
+* ✅ Requisições bem-sucedidas;
+* ✅ Entradas vazias;
+* ✅ Tratamento de erros;
+* ✅ Respostas inesperadas da API;
+* ✅ Limitações de requisições;
+* ✅ Comportamentos da lógica de consumo da API.
+
+Os testes podem ser executados localmente com:
+
+```bash
+npm install
+npm test
+```
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend:** HTML5 semântico, CSS3 (com variáveis de tema e efeitos de vidro fosco/holográfico) e JavaScript (ES6+).
-- **Requisições HTTP:** `Fetch API` assíncrona (`async/await`).
-- **Testes:** [Jest](https://jestjs.io/) (Testes Unitários).
-- **Bibliotecas Externas:** [Weather Icons](https://erikflowers.github.io/weather-icons/) para representação visual do clima.
-- **Documentação:** Padrão **JSDoc**.
+### Frontend
+
+* **HTML5** — estrutura semântica da aplicação;
+* **CSS3** — responsividade, animações, variáveis CSS e efeitos visuais;
+* **JavaScript ES6+** — lógica da aplicação e manipulação do DOM.
+
+### API
+
+* **Open-Meteo API** — fornecimento dos dados meteorológicos;
+* **Fetch API** — comunicação assíncrona com os serviços externos;
+* **Async/Await** — gerenciamento das requisições assíncronas.
+
+### Testes
+
+* **Jest** — testes unitários;
+* **Mocks** — simulação das requisições e respostas da API.
+
+### Bibliotecas
+
+* **Weather Icons** — representação visual das condições meteorológicas.
+
+### Documentação
+
+* **JSDoc** — documentação das funções JavaScript.
 
 ---
 
@@ -31,55 +142,162 @@ Este é um aplicativo web interativo de previsão do tempo desenvolvido com HTML
 projeto_clima/
 │
 ├── audio/
-│   └── imperial_march.mp3  # Trilha sonora de abertura
+│   └── imperial_march.mp3    # Trilha sonora da abertura
+│
 ├── css/
-│   └── style.css           # Estilos, variáveis galácticas e animações 3D
+│   └── style.css             # Estilos, temas e animações
+│
 ├── js/
-│   └── api.js              # Lógica de consumo de API e manipulação da DOM
+│   └── api.js                # Consumo da API e lógica da aplicação
+│
 ├── tests/
-│   └── api.test.js         # Testes automatizados com Jest
-├── .gitignore              # Arquivos ignorados pelo Git
-├── index.html              # Interface principal e tela de abertura
-├── package.json            # Dependências e scripts do Node.js
-├── SECURITY.md             # Política de segurança da aplicação
-├── NOTICE.md               # Atribuições e créditos de terceiros
-├── LICENSE                 # Licença de uso e conformidade (Bilingue)
-└── README.md               # Documentação oficial do projeto
+│   └── api.test.js           # Testes automatizados com Jest
+│
+├── .gitignore                # Arquivos ignorados pelo Git
+├── index.html                # Interface principal e abertura
+├── package.json              # Dependências e scripts do projeto
+├── SECURITY.md               # Política de segurança
+├── NOTICE.md                 # Atribuições e créditos
+├── LICENSE                   # Licença do projeto
+└── README.md                 # Documentação
+```
 
-📦 Como rodar o projeto localmente
-Para ver a interface funcionando no seu navegador, você não precisa instalar nada complexo:
+---
 
-Clone este repositório no seu terminal:
+## 💻 Como executar o projeto
 
+### 1. Clone o repositório
+
+```bash
 git clone https://github.com/marypraxedes/projeto_clima.git
+```
 
-Navegue até a pasta do projeto:
+### 2. Entre na pasta do projeto
 
+```bash
 cd projeto_clima
+```
 
-Abra o arquivo index.html diretamente no seu navegador de preferência, ou utilize a extensão Live Server no Visual Studio Code.
+### 3. Execute a aplicação
 
-🧪 Como rodar os testes automatizados
+Você pode abrir o arquivo `index.html` diretamente no navegador.
 
-Este projeto conta com uma robusta suíte de testes unitários configurada para testar a lógica da API sem a necessidade de uma rede ativa (usando Mocks). Para executá-los:
+Para uma experiência melhor durante o desenvolvimento, recomenda-se utilizar a extensão **Live Server** no Visual Studio Code.
 
-Certifique-se de ter o Node.js instalado na sua máquina.
+---
 
-Instale as dependências de desenvolvimento do projeto:
+## 🧪 Executando os testes
 
+Certifique-se de ter o **Node.js** instalado.
+
+Instale as dependências:
+
+```bash
 npm install
+```
 
-Rode a bateria de testes:
+Execute os testes:
 
+```bash
 npm test
+```
 
-Você deverá ver no terminal um relatório do Jest mostrando que todos os cenários (casos de sucesso, entradas vazias, limite de requisições, etc.) passaram com sucesso. ✅
+O Jest exibirá no terminal o resultado da suíte de testes e dos cenários validados.
 
-🔒 Privacidade e Segurança (Auditoria)
-Dados de Localização: A aplicação não armazena permanentemente nenhum dado de localização ou histórico de busca dos usuários (utiliza apenas processamento em memória volátil durante a sessão).
+---
 
-Sem Chaves de API Expostas: O serviço utilizado (Open-Meteo) é de acesso público aberto e não requer tokens de autenticação ou chaves privadas (API Keys), eliminando riscos de vazamento de credenciais.
+## 🌐 Deploy
 
-Tratamento de Exceções: Validação rigorosa de entradas para mitigar comportamentos inesperados do usuário.
+Após a conclusão do desenvolvimento e o **merge da branch para a `main`**, o projeto será disponibilizado em ambiente de produção.
 
-Desenvolvido com dedicação para o Bootcamp da Generation Brasil. 🌌🚀
+### 🚀 Acesso à aplicação
+
+🔗 **Aplicação online:** [LINK_DO_DEPLOY](LINK_DO_DEPLOY)
+
+> O link será atualizado após a realização do deploy da versão final do projeto na branch `main`.
+
+O fluxo de publicação seguirá:
+
+```text
+Desenvolvimento
+      ↓
+Pull Request
+      ↓
+Code Review
+      ↓
+Merge → main
+      ↓
+Deploy
+      ↓
+Aplicação em produção 🚀
+```
+
+Dessa forma, a versão disponível no ambiente de produção estará alinhada com a versão validada e integrada na branch `main`.
+
+---
+
+## 🔒 Privacidade e Segurança
+
+### 📍 Dados de localização
+
+A aplicação não armazena permanentemente a localização ou o histórico de pesquisas dos usuários.
+
+Os dados são utilizados apenas durante a execução da aplicação.
+
+### 🔑 Chaves de API
+
+O projeto utiliza a **Open-Meteo API**, que não exige uma chave privada para as requisições utilizadas pela aplicação.
+
+Dessa forma, não há credenciais sensíveis expostas no código.
+
+### 🛡️ Tratamento de entradas
+
+As entradas fornecidas pelo usuário são validadas antes do processamento, reduzindo comportamentos inesperados durante a utilização da aplicação.
+
+Para mais informações, consulte o arquivo [`SECURITY.md`](SECURITY.md).
+
+---
+
+## 📚 Aprendizados
+
+Durante o desenvolvimento deste projeto, foram praticados conceitos importantes de desenvolvimento web, incluindo:
+
+* Manipulação do DOM;
+* JavaScript moderno (ES6+);
+* Consumo de APIs REST;
+* Requisições assíncronas com `fetch`;
+* `async/await`;
+* Tratamento de erros;
+* Testes unitários;
+* Mock de requisições;
+* Responsividade;
+* Animações com CSS;
+* Organização de projetos frontend;
+* Documentação de código;
+* Git e GitHub.
+
+---
+
+## 🎯 Objetivo do Projeto
+
+Este projeto foi desenvolvido como parte do **Bootcamp da Generation Brasil**, com o objetivo de colocar em prática conhecimentos de desenvolvimento web e integração com APIs.
+
+Além da parte funcional, a proposta foi criar uma experiência diferenciada de usuário, combinando **tecnologia, criatividade e a temática de Star Wars**. 🌌
+
+---
+
+## 👩‍💻 Desenvolvido por
+
+**Maryane Praxedes**
+
+Estudante de Engenharia de Software e desenvolvedora em formação, com interesse em **Backend, Java, Spring Boot, Cloud e Cibersegurança**.
+
+🐙 **GitHub:** [@marypraxedes](https://github.com/marypraxedes)
+
+---
+
+## ⭐ Gostou do projeto?
+
+Se este projeto foi útil ou interessante para você, considere deixar uma ⭐ no repositório!
+
+**Que a Força esteja com você.** ⚔️🌌
