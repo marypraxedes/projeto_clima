@@ -26,8 +26,6 @@ Interface inspirada no **Lado da Luz**, com elementos visuais mais claros, atmos
 
 Interface inspirada no **Lado Sombrio**, com elementos vermelhos, estética Sith e temática de Darth Vader.
 
-> Os nomes dos arquivos podem ser ajustados caso suas imagens tenham nomes diferentes.
-
 ---
 
 ## 🚀 Funcionalidades
