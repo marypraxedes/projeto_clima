@@ -1,77 +1,43 @@
 /**
- * @fileoverview Lógica principal do aplicativo de Previsão do Tempo (Star Wars Theme).
- * Realiza requisições para a API Open-Meteo, trata dados climáticos e manipula a interface.
+ * @fileoverview Lógica principal do aplicativo de Previsão do Tempo (Star Wars Theme + Extra Metrics).
  */
 
-// Constantes para as APIs (Melhoria de Eficiência e Manutenção)
 const API_GEO_URL = 'https://geocoding-api.open-meteo.com/v1/search';
 const API_WEATHER_URL = 'https://api.open-meteo.com/v1/forecast';
 
-/**
- * Busca os dados meteorológicos de uma cidade usando a API Open-Meteo.
- *
- * @async
- * @param {string} city - O nome da cidade (ou planeta) a ser pesquisado.
- * @returns {Promise<Object>} Um objeto contendo o nome da cidade, estado e os dados climáticos.
- * @throws {Error} Lança um erro se a entrada for vazia, se a cidade não for encontrada, ou em falhas de rede/API.
- * @example
- * const clima = await fetchWeatherData("São Paulo");
- * console.log(clima.city, clima.weatherInfo.temperature); // Retorna: São Paulo, 24.5
- */
 async function fetchWeatherData(city) {
-    if (!city || city.trim() === '') {
-        throw new Error("Entrada vazia. Informe um planeta ou cidade.");
-    }
-
+    if (!city || city.trim() === '') throw new Error("Entrada vazia. Informe um planeta ou cidade da galáxia.");
     try {
-        // 1. Geocodificação
         const geoResponse = await fetch(`${API_GEO_URL}?name=${encodeURIComponent(city)}&count=1&language=pt`);
-        
-        if (geoResponse.status === 429) throw new Error("Limite de requisições excedido.");
-        if (!geoResponse.ok) throw new Error("Falha na API: Erro de conexão com o servidor.");
+        if (geoResponse.status === 429) throw new Error("Limite de requisições excedido nos computadores da Coruscant.");
+        if (!geoResponse.ok) throw new Error("Falha na API: Erro de conexão com o Império.");
         
         const geoData = await geoResponse.json();
 
-        if (typeof geoData !== 'object' || (!geoData.results && Object.keys(geoData).length > 0)) {
-            throw new Error("Formato de resposta inesperado da API.");
-        }
-
-        if (!geoData.results || geoData.results.length === 0) {
-            throw new Error(`Estrela da Morte não detectou o planeta/cidade: "${city}".`);
+        // CORREÇÃO: Se não houver a propriedade 'results' ou se ela estiver vazia, 
+        // significa que a cidade/planeta simplesmente não existe na base de dados!
+        if (!geoData.results || !Array.isArray(geoData.results) || geoData.results.length === 0) {
+            throw new Error(`Erro de Navegação: Setor desconhecido! A Força não detecta nenhum planeta chamado "${city}".`);
         }
 
         const { latitude, longitude, name, admin1 } = geoData.results[0];
-
-        // 2. Previsão do Tempo
-        const weatherResponse = await fetch(`${API_WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+        
+        const weatherUrl = `${API_WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,weather_code,is_day`;
+        const weatherResponse = await fetch(weatherUrl);
         
         if (!weatherResponse.ok) throw new Error("Falha na API: Erro no servidor de clima.");
 
         const weatherData = await weatherResponse.json();
-        
-        return {
-            city: name,
-            state: admin1,
-            weatherInfo: weatherData.current_weather
-        };
+        return { city: name, state: admin1, weatherInfo: weatherData.current };
 
     } catch (error) {
         if (error.name === 'TypeError' || (error.message && error.message.includes('fetch'))) {
-            throw new Error("Conexão de rede lenta ou instável.");
+            throw new Error("Conexão de rede perdida na Orla Exterior.");
         }
         throw error;
     }
 }
 
-// ===== LÓGICA DE INTERFACE (Isolada para não quebrar no Jest) =====
-
-/**
- * Mapeia o código do clima para uma descrição amigável e um ícone.
- * 
- * @param {number} code - Código meteorológico da WMO.
- * @param {number} isDay - 1 para dia, 0 para noite.
- * @returns {Object} Objeto contendo `desc` (descrição) e `icon` (classe do ícone).
- */
 function getWeatherDetails(code, isDay) {
     const time = isDay === 1 ? 'day' : 'night';
     const weatherCodes = {
@@ -86,8 +52,67 @@ function getWeatherDetails(code, isDay) {
 
 let isManualTheme = false;
 
-// Função que inicializa a manipulação da tela apenas se estiver rodando no navegador
 if (typeof document !== 'undefined') {
+    // ===== ÁUDIOS CAPTURADOS DO HTML =====
+    const themeSong = document.getElementById('audio-theme');
+    const saberSith = document.getElementById('audio-sith');
+    const saberJedi = document.getElementById('audio-jedi');
+    
+    // Configura o volume da música para não estourar o ouvido
+    if (themeSong) themeSong.volume = 0.4;
+
+    const introScreen = document.getElementById('intro-screen');
+    const startIntroBtn = document.getElementById('start-intro-btn');
+    const skipIntroBtn = document.getElementById('skip-intro-btn');
+    const starWarsIntro = document.getElementById('star-wars-intro');
+    const introContent = document.getElementById('intro-content');
+    const appMain = document.getElementById('app-main');
+
+    let introTimeout;
+
+    // Função universal para tocar áudio forçado
+    async function playAudio(audioElement) {
+        try {
+            if (audioElement) {
+                audioElement.currentTime = 0;
+                await audioElement.play();
+            }
+        } catch (err) {
+            console.warn("O navegador bloqueou o áudio:", err);
+        }
+    }
+
+    startIntroBtn.addEventListener('click', () => {
+        introContent.classList.add('hidden');
+        starWarsIntro.classList.remove('hidden');
+        skipIntroBtn.classList.remove('hidden');
+        
+        playAudio(themeSong); // Toca a música tema
+
+        introTimeout = setTimeout(finishIntro, 14000);
+    });
+
+    skipIntroBtn.addEventListener('click', () => {
+        clearTimeout(introTimeout);
+        finishIntro();
+    });
+
+    function finishIntro() {
+        if (themeSong) {
+            let fadeAudio = setInterval(() => {
+                if (themeSong.volume > 0.05) {
+                    themeSong.volume -= 0.05;
+                } else {
+                    themeSong.pause();
+                    clearInterval(fadeAudio);
+                }
+            }, 200);
+        }
+
+        introScreen.classList.add('hidden');
+        appMain.classList.remove('hidden');
+    }
+
     const cityInput = document.getElementById('city-input');
     const searchBtn = document.getElementById('search-btn');
     const weatherResult = document.getElementById('weather-result');
@@ -99,15 +124,23 @@ if (typeof document !== 'undefined') {
         errorMessage.classList.add('hidden');
         weatherResult.classList.remove('hidden');
 
-        const details = getWeatherDetails(data.weatherInfo.weathercode, data.weatherInfo.is_day);
+        const info = data.weatherInfo;
+        const details = getWeatherDetails(info.weather_code, info.is_day);
         
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('city-name').textContent = data.state ? `${data.city} - ${data.state}` : data.city;
-        document.getElementById('temperature-value').textContent = Math.round(data.weatherInfo.temperature);
+        
+        document.getElementById('temperature-value').textContent = Math.round(info.temperature_2m);
         document.getElementById('weather-description').textContent = details.desc;
         document.getElementById('weather-icon').className = `wi ${details.icon}`;
 
-        if (!isManualTheme) document.body.className = data.weatherInfo.is_day === 1 ? 'light-side' : 'dark-side';
+        document.getElementById('humidity-value').textContent = info.relative_humidity_2m;
+        document.getElementById('wind-value').textContent = info.wind_speed_10m;
+        document.getElementById('precip-value').textContent = info.precipitation;
+
+        if (!isManualTheme) {
+            document.body.className = info.is_day === 1 ? 'light-side' : 'dark-side';
+        }
     }
 
     async function handleSearch() {
@@ -126,11 +159,17 @@ if (typeof document !== 'undefined') {
     
     themeToggleBtn.addEventListener('click', () => {
         isManualTheme = true;
-        document.body.className = document.body.classList.contains('light-side') ? 'dark-side' : 'light-side';
+        
+        if (document.body.classList.contains('light-side')) {
+            document.body.className = 'dark-side';
+            playAudio(saberSith); // Barulho do sabre vermelho
+        } else {
+            document.body.className = 'light-side';
+            playAudio(saberJedi); // Barulho do sabre azul
+        }
     });
 }
 
-// Exportação para o Jest
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { fetchWeatherData };
 }

@@ -1,34 +1,44 @@
 /**
- * @fileoverview Bateria de testes unitários com Jest para a API do aplicativo de Clima.
+ * @fileoverview Bateria de testes atualizada para suportar Variáveis Meteorológicas Adicionais.
  */
 
 const { fetchWeatherData } = require('../js/api');
 
 global.fetch = jest.fn();
 
-// Função utilitária para reduzir redundância nos testes
 const mockFetchResponse = (ok, status, data, rejectError = null) => {
     if (rejectError) return fetch.mockRejectedValueOnce(rejectError);
     return fetch.mockResolvedValueOnce({ ok, status, json: async () => data });
 };
 
-describe('Bateria de Testes: Aplicativo de Clima (Star Wars Theme)', () => {
+describe('Bateria de Testes: Aplicativo de Clima (Star Wars + Extra Metrics)', () => {
     
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    // --- TESTES BÁSICOS ---
-
-    test('1. Nome de cidade válido retorna dados meteorológicos', async () => {
+    test('1. Nome de cidade válido retorna dados meteorológicos completos', async () => {
         mockFetchResponse(true, 200, { results: [{ latitude: -23.55, longitude: -46.63, name: 'São Paulo', admin1: 'SP' }] });
-        mockFetchResponse(true, 200, { current_weather: { temperature: 25, is_day: 1, weathercode: 0 } });
+        
+        // Simulação atualizada com a estrutura do Open-Meteo "current" (Opção 4)
+        mockFetchResponse(true, 200, { 
+            current: { 
+                temperature_2m: 25, 
+                is_day: 1, 
+                weather_code: 0,
+                relative_humidity_2m: 60,
+                wind_speed_10m: 15.5,
+                precipitation: 0.0
+            } 
+        });
 
         const data = await fetchWeatherData('São Paulo');
         
         expect(data.city).toBe('São Paulo');
-        expect(data.weatherInfo.temperature).toBe(25);
-        expect(fetch).toHaveBeenCalledTimes(2); // Garante que chamou Geocoding e Clima
+        expect(data.weatherInfo.temperature_2m).toBe(25);
+        expect(data.weatherInfo.relative_humidity_2m).toBe(60);
+        expect(data.weatherInfo.precipitation).toBe(0);
+        expect(fetch).toHaveBeenCalledTimes(2); 
     });
 
     test('2. Nome de cidade inexistente lança exceção tratada', async () => {
@@ -45,8 +55,6 @@ describe('Bateria de Testes: Aplicativo de Clima (Star Wars Theme)', () => {
         mockFetchResponse(false, 500, {});
         await expect(fetchWeatherData('Naboo')).rejects.toThrow('Falha na API: Erro de conexão com o servidor.');
     });
-
-    // --- CASOS EXTREMOS ---
 
     test('5. Limite de requisições da API excedido', async () => {
         mockFetchResponse(false, 429, {});

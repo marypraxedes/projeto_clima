@@ -1,22 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 /* ===== VARIÁVEIS DE TEMA (STAR WARS) ===== */
 :root {
-    /* Padrão: Lado da Força (Dia) */
-    --bg-color: #f0f4f8;
-    --container-bg: #ffffff;
-    --text-color: #333333;
-    --accent-color: #2980b9; /* Azul Jedi */
-    --input-bg: #ffffff;
-    --input-border: #ccc;
+    /* Lado da Força (Dia) - Viagem Intergaláctica no Hiperespaço */
+    --bg-color: #020617;
+    --container-bg: rgba(255, 255, 255, 0.92);
+    --text-color: #0f172a;
+    --accent-color: #0284c7; /* Azul Hiperespaço */
+    --glow-color: rgba(2, 132, 199, 0.5);
+    --input-bg: #f8fafc;
+    --input-border: #cbd5e1;
+    
+    /* Fundo Light Side: Céu azul profundo com efeito de Viagem Intergaláctica (Hiperespaço) */
+    --bg-pattern: 
+        radial-gradient(ellipse at center, rgba(56, 189, 248, 0.25) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(3, 105, 161, 0.15), rgba(15, 23, 42, 0.8)),
+        url('https://www.transparenttextures.com/patterns/stardust.png'),
+        #0f172a;
 }
 
 body.dark-side {
-    /* Lado Sombrio (Noite) */
-    --bg-color: #121212;
-    --container-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --accent-color: #e74c3c; /* Vermelho Sith */
-    --input-bg: #2c2c2c;
-    --input-border: #444;
+    /* Lado Sombrio (Noite) - Espaço Profundo / Estrela da Morte */
+    --bg-color: #030305;
+    --container-bg: rgba(18, 18, 24, 0.88);
+    --text-color: #f1f5f9;
+    --accent-color: #dc2626; /* Vermelho Sith Intenso */
+    --glow-color: rgba(231, 76, 60, 0.6);
+    --input-bg: #0f0f13;
+    --input-border: #334155;
+    
+    /* Fundo Dark Side: Estrela da Morte no Espaço Profundo */
+    --bg-pattern: 
+        radial-gradient(circle at 85% 15%, rgba(120, 120, 140, 0.18) 0%, transparent 45%), 
+        radial-gradient(circle at 15% 85%, rgba(220, 38, 38, 0.06) 0%, transparent 50%), 
+        url('https://www.transparenttextures.com/patterns/stardust.png'),
+        #030305;
 }
 
 /* ===== ESTILOS GERAIS ===== */
@@ -24,35 +42,46 @@ body.dark-side {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background-color 0.4s ease, color 0.4s ease; /* Transição suave de tema */
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 
 body {
+    background: var(--bg-pattern);
     background-color: var(--bg-color);
     color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
+/* Tipografia Futurista */
+h1, h2, .theme-btn, #search-btn {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* ===== APLICATIVO PRINCIPAL ===== */
 .container {
     background-color: var(--container-bg);
+    backdrop-filter: blur(12px); /* Efeito vidro fosco holográfico */
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 25px var(--glow-color), inset 0 0 15px var(--glow-color);
 }
 
-h1 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+h1 { 
+    margin-bottom: 1rem; 
+    font-size: 1.4rem; 
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-
-/* Adicione isso no seu style.css, logo abaixo das regras do h1 */
 
 .theme-btn {
     background-color: transparent;
@@ -61,91 +90,164 @@ h1 {
     padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: bold;
+    font-size: 0.75rem;
     margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .theme-btn:hover {
     background-color: var(--accent-color);
-    color: var(--bg-color); /* A cor do texto inverte para dar contraste */
+    color: #fff;
+    box-shadow: 0 0 15px var(--accent-color);
 }
 
-/* ===== BUSCA ===== */
-.search-box {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1.5rem;
+.search-box { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 1.5rem; 
 }
 
 #city-input {
-    flex: 1;
-    padding: 10px;
+    flex: 1; 
+    padding: 12px; 
     background-color: var(--input-bg);
-    color: var(--text-color);
+    color: var(--text-color); 
     border: 1px solid var(--input-border);
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 8px; 
+    font-size: 0.95rem; 
     outline: none;
 }
 
-#city-input:focus {
-    border-color: var(--accent-color);
+#city-input:focus { 
+    border-color: var(--accent-color); 
+    box-shadow: 0 0 10px var(--glow-color); 
 }
 
 #search-btn {
-    padding: 10px 15px;
+    padding: 12px 18px; 
     background-color: var(--accent-color);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
     cursor: pointer;
-    font-size: 1rem;
     font-weight: bold;
 }
 
-#search-btn:hover {
-    filter: brightness(0.85);
+#search-btn:hover { 
+    filter: brightness(1.2); 
+    box-shadow: 0 0 12px var(--accent-color); 
 }
 
-/* ===== RESULTADOS ===== */
-.date-text {
-    font-size: 0.85rem;
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
-    text-transform: capitalize;
+.date-text { 
+    font-size: 0.8rem; 
+    opacity: 0.8; 
+    margin-bottom: 0.5rem; 
+    text-transform: capitalize; 
 }
 
-.weather-display {
+.weather-display { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 15px; 
+    margin: 10px 0; 
+}
+
+#weather-icon { 
+    font-size: 3.5rem; 
+    color: var(--accent-color); 
+    text-shadow: 0 0 15px var(--glow-color); 
+}
+
+.temperature { 
+    font-size: 3rem; 
+    font-weight: bold; 
+}
+
+.description { 
+    font-size: 1.1rem; 
+    font-weight: 500; 
+    text-transform: capitalize; 
+}
+
+/* ===== MÉTRICAS EXTRAS (OPÇÃO 4) ===== */
+.extra-metrics {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--input-border);
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin: 15px 0;
+    gap: 5px;
+    font-family: 'Orbitron', sans-serif;
 }
 
-#weather-icon {
-    font-size: 3.5rem;
+.metric i {
+    font-size: 1.3rem;
     color: var(--accent-color);
 }
 
-.temperature {
-    font-size: 3rem;
+.metric p {
     font-weight: bold;
+    font-size: 1rem;
 }
 
-.description {
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-transform: capitalize;
+.metric small {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-transform: uppercase;
 }
 
-#error-message {
-    color: var(--accent-color);
-    font-weight: 500;
+#error-message { 
+    color: var(--accent-color); 
+    font-weight: 500; 
+    margin-top: 1rem; 
 }
 
-.hidden {
-    display: none !important;
+.hidden { display: none !important; }
+
+/* ===== TELA DE ABERTURA (STAR WARS CRAWL) ===== */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+}
+
+#start-intro-btn {
+    padding: 20px 40px; font-size: 1.3rem; background: transparent;
+    color: #feda4a; border: 2px solid #feda4a; font-family: 'Orbitron', sans-serif;
+    cursor: pointer; border-radius: 10px; text-transform: uppercase;
+    transition: 0.3s;
+}
+
+#start-intro-btn:hover { background: #feda4a; color: #000; box-shadow: 0 0 25px #feda4a; }
+
+#skip-intro-btn {
+    position: absolute; top: 20px; right: 20px; background: transparent;
+    color: #fff; border: 1px solid #fff; padding: 10px 15px; cursor: pointer;
+    font-family: 'Orbitron', sans-serif; z-index: 10000; border-radius: 6px;
+}
+
+.crawl-container {
+    perspective: 800px; height: 100vh; width: 100%; overflow: hidden;
+}
+
+.crawl-text {
+    color: #feda4a; font-family: 'Century Gothic', Arial, sans-serif;
+    font-size: 4vh; line-height: 1.5em; font-weight: bold;
+    text-align: justify; width: 80%; max-width: 800px; margin: 0 auto;
+    transform-origin: 50% 100%;
+    animation: crawl 20s linear forwards;
+}
+
+@keyframes crawl {
+    0% { transform: rotateX(25deg) translateY(100vh); opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: rotateX(25deg) translateY(-200vh); opacity: 0; }
 }
