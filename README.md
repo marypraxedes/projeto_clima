@@ -1,104 +1,119 @@
-# ⛅ Previsão do Tempo — Star Wars Edition ⚔️
+# 🌌 Star Wars Weather App — Painel Holográfico
 
-> Uma aplicação web interativa de previsão do tempo inspirada no universo de **Star Wars**, desenvolvida com **HTML5, CSS3 e JavaScript Vanilla** como projeto prático do **Bootcamp da Generation Brasil**.
+Uma aplicação web interativa de previsão do tempo inspirada no universo de **Star Wars**, combinando dados meteorológicos em tempo real com uma interface futurista de **cockpit espacial e painel holográfico**.
 
-A aplicação consome a **Open-Meteo API** para consultar dados meteorológicos e combina informações climáticas em tempo real com uma experiência visual inspirada na galáxia muito, muito distante. 🌌
-
----
-
-## ✨ Demonstração
-
-🔎 Pesquise uma cidade e descubra as condições climáticas atuais enquanto explora uma interface temática de Star Wars.
-
-O projeto conta com:
-
-* 🌡️ Temperatura atual
-* 💧 Umidade relativa do ar
-* 💨 Velocidade do vento
-* 🌧️ Probabilidade/índice de precipitação
-* 🌎 Busca por cidades
-* 🌞 Tema claro inspirado no **Lado da Luz**
-* 🌑 Tema escuro inspirado no **Lado Sombrio**
-* 🔊 Efeitos sonoros e animações
-* 🚀 Abertura cinematográfica inspirada no clássico *Star Wars Crawl*
+O projeto foi desenvolvido com **HTML5, CSS3 e JavaScript Vanilla**, utilizando a **Open-Meteo API** para consultar dados meteorológicos e explorando recursos de animação, efeitos visuais, áudio e interação para criar uma experiência imersiva.
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Funcionalidades e Experiência Imersiva
 
-### 🌌 Abertura Cinemática
+### 📺 Efeito CRT — Scanlines
 
-A aplicação possui uma tela de introdução inspirada na clássica abertura de **Star Wars**, criando uma experiência imersiva antes do acesso à previsão do tempo.
+Uma camada visual de **linhas de varredura horizontais** simula a aparência de monitores CRT, terminais antigos e equipamentos tecnológicos do universo Star Wars.
 
-A abertura conta com:
+O efeito contribui para a sensação de estar utilizando um sistema de bordo ou painel de controle espacial.
 
-* 🎵 **Marcha Imperial** como trilha sonora;
-* ⭐ Animação inspirada no famoso *Star Wars Crawl*;
-* 🌌 Fundo espacial com estrelas;
-* 🎬 Efeito de perspectiva e movimento do texto;
-* 🚀 Transição da abertura para a aplicação principal.
+### 💻 Painel de Telemetria e Diagnóstico
 
-> **"A long time ago in a galaxy far, far away..."** 🌌
+As informações meteorológicas são apresentadas através de cards personalizados inspirados em **painéis de telemetria**.
 
-A trilha sonora utilizada na abertura é a **Marcha Imperial**, criando uma introdução diretamente inspirada na atmosfera do universo Star Wars.
+Os componentes possuem efeitos de brilho interno (*inset glow*) e elementos holográficos para destacar informações como:
 
-### ⚔️ Temas da Força
+* 🌡️ Temperatura;
+* 💨 Velocidade do vento;
+* 💧 Umidade relativa do ar;
+* 🌧️ Dados de precipitação;
+* 📊 Informações meteorológicas adicionais.
 
-O usuário pode alternar entre diferentes temas visuais.
+### 🎯 Targeting Computer — Cursor de Mira
 
-A aplicação também utiliza o **horário local da cidade pesquisada** para determinar automaticamente o tema correspondente:
+O cursor padrão do navegador foi substituído por um **cursor em formato de mira (*crosshair*)**, inspirado em sistemas de precisão e computadores de navegação militar.
 
-* ☀️ **Lado da Luz** — período diurno;
-* 🌑 **Lado Sombrio** — período noturno.
+### ⚡ Glitch Hover Effects
 
-Também é possível alterar o tema manualmente através do botão de alternância.
+Os elementos interativos possuem efeitos de **glitch e oscilação** durante o *hover*, simulando pequenas interferências e falhas de energia em um sistema holográfico.
 
-### 🔎 Busca de Cidades
+O efeito é aplicado principalmente aos botões e componentes interativos.
 
-Permite pesquisar cidades e consultar suas condições meteorológicas atuais.
+---
 
-A aplicação possui tratamento personalizado para situações como:
+## 🌓 Lado da Luz vs. Lado Sombrio
 
-* Campo de busca vazio;
-* Cidade não encontrada;
-* Erros na comunicação com a API;
-* Limitações de requisições.
+Um dos principais diferenciais da aplicação é a possibilidade de alternar entre dois ambientes completamente diferentes.
 
-### 🌡️ Informações Meteorológicas
+### ☀️ Lado da Luz
 
-Após uma pesquisa válida, são apresentados dados como:
+O modo inspirado no **Lado da Luz** apresenta:
 
-| Informação       | Descrição                                 |
-| ---------------- | ----------------------------------------- |
-| 🌡️ Temperatura  | Temperatura atual em °C                   |
-| 💧 Umidade       | Umidade relativa do ar                    |
-| 💨 Vento         | Velocidade do vento                       |
-| 🌧️ Precipitação | Índice de chuva                           |
+* 🏜️ Fundo animado inspirado em Tatooine;
+* ⚔️ Acionamento do sabre de luz Jedi;
+* 🔊 Sons ambientes associados à atmosfera de nave e deserto;
+* ✨ Interface com elementos visuais mais claros e luminosos.
 
-### 🔊 Experiência Sonora
+### 🌑 Lado Sombrio
 
-A aplicação possui efeitos sonoros integrados à interação do usuário:
+O modo inspirado no **Lado Sombrio** transforma completamente a atmosfera da aplicação:
 
-* ⚔️ Sons relacionados a sabres de luz;
-* 🐾 Efeito sonoro do Chewbacca durante buscas;
-* 🎵 Trilha sonora na abertura.
+* 🖤 Fundo animado inspirado em Darth Vader;
+* 🔴 Bordas holográficas com estética Sith;
+* 🤖 Aparição de um Chibi Darth Vader;
+* 🎙️ Reprodução da fala icônica **"I have you now"**;
+* 🎵 Trilha sonora de fundo para aumentar a imersão;
+* ⚡ Interface com predominância de elementos vermelhos e escuros.
+
+A alternância de tema não modifica apenas as cores da interface: **ela também altera elementos visuais, animações e recursos sonoros da experiência.**
+
+---
+
+## 📜 Intro Crawl — Abertura Cinemática
+
+Antes de acessar o painel meteorológico, o usuário é apresentado a uma abertura inspirada no clássico *Star Wars Crawl*.
+
+A introdução conta com:
+
+* 🌌 Fundo espacial;
+* ⭐ Animação de estrelas;
+* 📜 Texto subindo em perspectiva 3D;
+* 🎬 Transição cinematográfica para o painel principal;
+* 🎵 **Marcha Imperial** como trilha sonora da abertura.
+
+A proposta é transformar o carregamento inicial em uma pequena experiência cinematográfica antes de liberar o acesso ao sistema meteorológico.
+
+---
+
+## 🌡️ Previsão do Tempo
+
+A aplicação utiliza a **Open-Meteo API** para consultar dados meteorológicos em tempo real.
+
+O usuário pode pesquisar uma cidade e visualizar informações como:
+
+* 🌡️ Temperatura atual;
+* 💧 Umidade relativa do ar;
+* 💨 Velocidade do vento;
+* 🌧️ Precipitação;
+* 🕐 Informações relacionadas ao horário local.
+
+Além disso, a aplicação possui tratamento de erros para situações como cidades não encontradas, campos vazios e problemas nas requisições.
 
 ---
 
 ## 🧪 Testes Automatizados
 
-O projeto possui uma suíte de **testes unitários utilizando Jest**, incluindo mocks para as requisições externas.
+O projeto também conta com uma suíte de **testes unitários utilizando Jest**.
 
-Os testes foram desenvolvidos para validar diferentes cenários da aplicação, como:
+Os testes utilizam **mocks de rede** para validar a lógica da aplicação sem depender de uma conexão real com a API durante a execução.
+
+Entre os cenários testados estão:
 
 * ✅ Requisições bem-sucedidas;
 * ✅ Entradas vazias;
 * ✅ Tratamento de erros;
-* ✅ Respostas inesperadas da API;
+* ✅ Respostas inesperadas;
 * ✅ Limitações de requisições;
-* ✅ Comportamentos da lógica de consumo da API.
+* ✅ Comportamento da lógica de consumo da API.
 
-Os testes podem ser executados localmente com:
+Para executar os testes:
 
 ```bash
 npm install
@@ -111,28 +126,31 @@ npm test
 
 ### Frontend
 
-* **HTML5** — estrutura semântica da aplicação;
-* **CSS3** — responsividade, animações, variáveis CSS e efeitos visuais;
-* **JavaScript ES6+** — lógica da aplicação e manipulação do DOM.
+* **HTML5** — estrutura da aplicação;
+* **CSS3** — responsividade, animações, efeitos visuais e variáveis de tema;
+* **JavaScript Vanilla (ES6+)** — lógica, manipulação do DOM, controle de estado e interações.
 
 ### API
 
-* **Open-Meteo API** — fornecimento dos dados meteorológicos;
-* **Fetch API** — comunicação assíncrona com os serviços externos;
-* **Async/Await** — gerenciamento das requisições assíncronas.
+* **Open-Meteo API** — dados meteorológicos em tempo real;
+* **Fetch API** — comunicação com a API;
+* **Async/Await** — controle das requisições assíncronas.
 
 ### Testes
 
 * **Jest** — testes unitários;
-* **Mocks** — simulação das requisições e respostas da API.
+* **Mocks** — simulação das requisições externas.
 
-### Bibliotecas
+### Recursos Visuais e Sonoros
 
-* **Weather Icons** — representação visual das condições meteorológicas.
-
-### Documentação
-
-* **JSDoc** — documentação das funções JavaScript.
+* 🎵 Marcha Imperial;
+* 🔊 Efeitos sonoros interativos;
+* 🌌 Animações CSS;
+* 📺 Efeito CRT/Scanlines;
+* ⚡ Glitch effects;
+* 🎯 Cursor Crosshair;
+* 💻 Interface holográfica;
+* 🌓 Sistema de temas baseado na estética Star Wars.
 
 ---
 
@@ -142,29 +160,30 @@ npm test
 projeto_clima/
 │
 ├── audio/
-│   └── imperial_march.mp3    # Trilha sonora da abertura
+│   ├── imperial_march.mp3
+│   └── ...                    # Efeitos sonoros e gifs
 │
 ├── css/
-│   └── style.css             # Estilos, temas e animações
+│   └── style.css              # Estilos, temas e animações
 │
 ├── js/
-│   └── api.js                # Consumo da API e lógica da aplicação
+│   └── api.js                 # API, DOM e lógica da aplicação
 │
 ├── tests/
-│   └── api.test.js           # Testes automatizados com Jest
+│   └── api.test.js            # Testes automatizados
 │
-├── .gitignore                # Arquivos ignorados pelo Git
-├── index.html                # Interface principal e abertura
-├── package.json              # Dependências e scripts do projeto
-├── SECURITY.md               # Política de segurança
-├── NOTICE.md                 # Atribuições e créditos
-├── LICENSE                   # Licença do projeto
-└── README.md                 # Documentação
+├── .gitignore
+├── index.html
+├── package.json
+├── SECURITY.md
+├── NOTICE.md
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-## 💻 Como executar o projeto
+## 💻 Como executar localmente
 
 ### 1. Clone o repositório
 
@@ -172,7 +191,7 @@ projeto_clima/
 git clone https://github.com/marypraxedes/projeto_clima.git
 ```
 
-### 2. Entre na pasta do projeto
+### 2. Acesse a pasta
 
 ```bash
 cd projeto_clima
@@ -180,48 +199,24 @@ cd projeto_clima
 
 ### 3. Execute a aplicação
 
-Você pode abrir o arquivo `index.html` diretamente no navegador.
-
-Para uma experiência melhor durante o desenvolvimento, recomenda-se utilizar a extensão **Live Server** no Visual Studio Code.
-
----
-
-## 🧪 Executando os testes
-
-Certifique-se de ter o **Node.js** instalado.
-
-Instale as dependências:
-
-```bash
-npm install
-```
-
-Execute os testes:
-
-```bash
-npm test
-```
-
-O Jest exibirá no terminal o resultado da suíte de testes e dos cenários validados.
+Abra o arquivo `index.html` diretamente no navegador ou utilize a extensão **Live Server** no Visual Studio Code.
 
 ---
 
 ## 🌐 Deploy
 
-Após a conclusão do desenvolvimento e o **merge da branch para a `main`**, o projeto será disponibilizado em ambiente de produção.
+Após o merge da versão final para a branch `main`, a aplicação será publicada em ambiente de produção.
 
-### 🚀 Acesso à aplicação
+🔗 **Aplicação online:** `https://marypraxedes.github.io/projeto_clima/`
 
-🔗 **Aplicação online:** [LINK_DO_DEPLOY](LINK_DO_DEPLOY)
-
-> O link será atualizado após a realização do deploy da versão final do projeto na branch `main`.
-
-O fluxo de publicação seguirá:
+Fluxo de publicação:
 
 ```text
 Desenvolvimento
       ↓
 Pull Request
+      ↓
+Testes
       ↓
 Code Review
       ↓
@@ -232,57 +227,47 @@ Deploy
 Aplicação em produção 🚀
 ```
 
-Dessa forma, a versão disponível no ambiente de produção estará alinhada com a versão validada e integrada na branch `main`.
-
 ---
 
 ## 🔒 Privacidade e Segurança
 
-### 📍 Dados de localização
+* 📍 A aplicação não mantém permanentemente o histórico de localização ou pesquisas do usuário.
+* 🔑 A Open-Meteo API utilizada não exige API Key para as requisições realizadas pelo projeto.
+* 🛡️ As entradas do usuário são validadas antes do processamento.
+* 🚫 Nenhuma credencial privada é armazenada no código-fonte.
 
-A aplicação não armazena permanentemente a localização ou o histórico de pesquisas dos usuários.
-
-Os dados são utilizados apenas durante a execução da aplicação.
-
-### 🔑 Chaves de API
-
-O projeto utiliza a **Open-Meteo API**, que não exige uma chave privada para as requisições utilizadas pela aplicação.
-
-Dessa forma, não há credenciais sensíveis expostas no código.
-
-### 🛡️ Tratamento de entradas
-
-As entradas fornecidas pelo usuário são validadas antes do processamento, reduzindo comportamentos inesperados durante a utilização da aplicação.
-
-Para mais informações, consulte o arquivo [`SECURITY.md`](SECURITY.md).
+Mais informações podem ser encontradas em [`SECURITY.md`](SECURITY.md).
 
 ---
 
-## 📚 Aprendizados
+## 📚 Conceitos Praticados
 
-Durante o desenvolvimento deste projeto, foram praticados conceitos importantes de desenvolvimento web, incluindo:
+Durante o desenvolvimento foram aplicados conceitos de:
 
 * Manipulação do DOM;
-* JavaScript moderno (ES6+);
+* JavaScript ES6+;
 * Consumo de APIs REST;
-* Requisições assíncronas com `fetch`;
+* `fetch`;
 * `async/await`;
 * Tratamento de erros;
 * Testes unitários;
 * Mock de requisições;
+* CSS avançado;
+* Animações e transições;
+* Variáveis CSS;
 * Responsividade;
-* Animações com CSS;
-* Organização de projetos frontend;
-* Documentação de código;
-* Git e GitHub.
+* Controle de temas;
+* Manipulação de áudio;
+* Git e GitHub;
+* Organização de projeto frontend.
 
 ---
 
-## 🎯 Objetivo do Projeto
+## 🎯 Objetivo
 
-Este projeto foi desenvolvido como parte do **Bootcamp da Generation Brasil**, com o objetivo de colocar em prática conhecimentos de desenvolvimento web e integração com APIs.
+O projeto foi desenvolvido como atividade prática do **Bootcamp da Generation Brasil**, com o objetivo de aplicar conhecimentos de desenvolvimento web, integração com APIs e testes automatizados.
 
-Além da parte funcional, a proposta foi criar uma experiência diferenciada de usuário, combinando **tecnologia, criatividade e a temática de Star Wars**. 🌌
+Além da funcionalidade de previsão do tempo, o projeto busca explorar como **HTML, CSS e JavaScript podem ser utilizados para criar uma experiência de usuário mais interativa e imersiva**.
 
 ---
 
@@ -290,14 +275,12 @@ Além da parte funcional, a proposta foi criar uma experiência diferenciada de 
 
 **Maryane Praxedes**
 
-Estudante de Engenharia de Software e desenvolvedora em formação, com interesse em **Backend, Java, Spring Boot, Cloud e Cibersegurança**.
+Estudante de Engenharia de Software e desenvolvedora em formação.
 
-🐙 **GitHub:** [@marypraxedes](https://github.com/marypraxedes)
+🔗 [GitHub — @marypraxedes](https://github.com/marypraxedes)
 
 ---
 
-## ⭐ Gostou do projeto?
-
-Se este projeto foi útil ou interessante para você, considere deixar uma ⭐ no repositório!
+⭐ Se você gostou do projeto, considere deixar uma estrela no repositório!
 
 **Que a Força esteja com você.** ⚔️🌌
