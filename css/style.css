@@ -528,3 +528,15 @@ body.dark-side .app-footer a {
         left: 10px;
     }
 }
+
+/* ===== EFEITO DE CARREGAMENTO (TERMINAL SCAN) ===== */
+#error-message {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    animation: textPulse 1s infinite alternate;
+}
+
+@keyframes textPulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+}

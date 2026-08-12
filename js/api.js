@@ -174,16 +174,23 @@ function setLogo(isDark) {
     }
 
     // Busca Manual
-    async function handleSearch() {
-        try {
-            const data = await fetchWeatherData(cityInput.value.trim());
-            updateUI(data);
-        } catch (error) {
-            weatherResult.classList.add('hidden');
-            errorMessage.classList.remove('hidden');
-            errorText.textContent = `❌ ${error.message}`;
-        }
+   async function handleSearch() {
+    try {
+        // MOSTRA O CARREGAMENTO IMEDIATAMENTE ANTES DO FETCH
+        errorMessage.classList.remove('hidden');
+        weatherResult.classList.add('hidden');
+        errorText.textContent = "🌌 Vasculhando na galáxia...";
+
+        // Faz a busca na API
+        const data = await fetchWeatherData(cityInput.value.trim());
+        updateUI(data);
+        
+    } catch (error) {
+        weatherResult.classList.add('hidden');
+        errorMessage.classList.remove('hidden');
+        errorText.textContent = `❌ ${error.message}`;
     }
+}
 
     if (searchBtn) searchBtn.addEventListener('click', handleSearch);
     if (cityInput) {
@@ -197,17 +204,21 @@ function setLogo(isDark) {
         geoBtn.addEventListener('click', () => {
             if ("geolocation" in navigator) {
                 geoBtn.textContent = "⏳";
+                
+                // MOSTRA O CARREGAMENTO ANTES DE PEGAR A POSIÇÃO
+                errorMessage.classList.remove('hidden');
+                weatherResult.classList.add('hidden');
+                errorText.textContent = "🌌 Vasculhando na galáxia...";
+
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const { latitude, longitude } = position.coords;
                     try {
-                        // Descobre o nome do local
                         const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=pt`);
                         const geoData = await geoRes.json();
                         const cityName = geoData.city || geoData.locality || "Sua Localização";
                         const stateName = geoData.principalSubdivision || "";
                         const locationFullName = stateName ? `${cityName}, ${stateName}` : cityName;
 
-                        // Busca clima direto pelas coordenadas
                         const weatherUrl = `${API_WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
                         const weatherRes = await fetch(weatherUrl);
                         if (!weatherRes.ok) throw new Error("Erro ao buscar clima via satélite.");
@@ -224,11 +235,12 @@ function setLogo(isDark) {
                         geoBtn.textContent = "📍";
                     } catch (e) {
                         geoBtn.textContent = "📍";
-                        errorText.textContent = "❌ Falha ao obter dados de geolocalização.";
+                        errorText.textContent = `❌ Falha ao obter dados: ${e.message}`;
                         errorMessage.classList.remove('hidden');
                     }
                 }, () => { 
                     geoBtn.textContent = "📍"; 
+                    errorMessage.classList.add('hidden');
                     alert("Acesso à localização negado."); 
                 });
             } else {
