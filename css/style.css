@@ -1,0 +1,91 @@
+/* Reset básico para manter a consistência em todos os navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #2c3e50;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+#city-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#city-input:focus {
+    border-color: #3498db;
+}
+
+#search-btn {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#search-btn:hover {
+    background-color: #2980b9;
+}
+
+#weather-result {
+    padding: 1.5rem;
+    background-color: #e8f4fd;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.temperature {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #2980b9;
+    margin: 10px 0;
+}
+
+/* Classe utilitária para esconder elementos dinamicamente no JavaScript */
+.hidden {
+    display: none !important;
+}
+
+#error-message {
+    margin-top: 1rem;
+    color: #e74c3c;
+    font-weight: 500;
+}
