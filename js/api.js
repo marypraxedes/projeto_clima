@@ -1,116 +1,105 @@
-// Elementos da DOM
-const cityInput = document.getElementById('city-input');
-const searchBtn = document.getElementById('search-btn');
-const weatherResult = document.getElementById('weather-result');
-const errorMessage = document.getElementById('error-message');
-const errorText = document.getElementById('error-text');
-// --- Adicione isso ao topo do seu arquivo JS (junto com os outros elementos) ---
-const themeToggleBtn = document.getElementById('theme-toggle');
+// ===== ELEMENTOS DA DOM =====
+const cityInput = typeof document !== 'undefined' ? document.getElementById('city-input') : null;
+const searchBtn = typeof document !== 'undefined' ? document.getElementById('search-btn') : null;
+const weatherResult = typeof document !== 'undefined' ? document.getElementById('weather-result') : null;
+const errorMessage = typeof document !== 'undefined' ? document.getElementById('error-message') : null;
+const errorText = typeof document !== 'undefined' ? document.getElementById('error-text') : null;
+const currentDate = typeof document !== 'undefined' ? document.getElementById('current-date') : null;
+const cityName = typeof document !== 'undefined' ? document.getElementById('city-name') : null;
+const temperatureValue = typeof document !== 'undefined' ? document.getElementById('temperature-value') : null;
+const weatherDescription = typeof document !== 'undefined' ? document.getElementById('weather-description') : null;
+const weatherIcon = typeof document !== 'undefined' ? document.getElementById('weather-icon') : null;
+const themeToggleBtn = typeof document !== 'undefined' ? document.getElementById('theme-toggle') : null;
 
-// Elementos de exibição de dados
-const currentDate = document.getElementById('current-date');
-const cityName = document.getElementById('city-name');
-const temperatureValue = document.getElementById('temperature-value');
-const weatherDescription = document.getElementById('weather-description');
-const weatherIcon = document.getElementById('weather-icon');
+let isManualTheme = false;
 
-// Dicionário de Códigos de Clima da WMO (Open-Meteo) com ícones do Weather Icons
-function getWeatherDetails(code, isDay) {
-    const time = isDay === 1 ? 'day' : 'night';
-    
-    const weatherCodes = {
-        0: { desc: 'Céu limpo', icon: `wi-${time}-sunny` },
-        1: { desc: 'Principalmente limpo', icon: `wi-${time}-cloudy` },
-        2: { desc: 'Parcialmente nublado', icon: `wi-${time}-cloudy` },
-        3: { desc: 'Nublado', icon: 'wi-cloudy' },
-        45: { desc: 'Nevoeiro', icon: `wi-${time}-fog` },
-        48: { desc: 'Nevoeiro com geada', icon: `wi-${time}-fog` },
-        51: { desc: 'Chuvisco leve', icon: `wi-${time}-showers` },
-        53: { desc: 'Chuvisco moderado', icon: `wi-${time}-showers` },
-        55: { desc: 'Chuvisco forte', icon: `wi-${time}-showers` },
-        61: { desc: 'Chuva leve', icon: `wi-${time}-rain` },
-        63: { desc: 'Chuva moderada', icon: `wi-${time}-rain` },
-        65: { desc: 'Chuva forte', icon: `wi-${time}-rain` },
-        71: { desc: 'Neve leve', icon: `wi-${time}-snow` },
-        73: { desc: 'Neve moderada', icon: `wi-${time}-snow` },
-        75: { desc: 'Neve forte', icon: `wi-${time}-snow` },
-        95: { desc: 'Tempestade', icon: `wi-${time}-thunderstorm` }
-    };
+// ===== LÓGICA DE NEGÓCIO (TESTÁVEL COM JEST) =====
 
-    // Caso retorne um código que não está no dicionário, usa um fallback
-    return weatherCodes[code] || { desc: 'Clima desconhecido', icon: 'wi-na' };
-}
-
-// Formatar a data no estilo exigido
-function getFormattedDate() {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const date = new Date();
-    return date.toLocaleDateString('pt-BR', options);
-}
-
-// Trocar entre Lado da Força (Dia) e Lado Sombrio (Noite)
-function setTheme(isDay) {
-    if (isDay === 1) {
-        document.body.className = 'light-side';
-    } else {
-        document.body.className = 'dark-side';
+// Função centralizada apenas para buscar os dados, sem mexer na tela
+async function fetchWeatherData(city) {
+    if (!city || city.trim() === '') {
+        throw new Error("Entrada vazia. Informe um planeta ou cidade.");
     }
-}
 
-// Função principal de busca
-async function getWeatherData(city) {
     try {
-        // 1. Tratamento de Erros: Falha na API ou Rede na Geocodificação
+        // 1. Geocodificação
         const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=pt`);
         
-        if (!geoResponse.ok) throw new Error("Erro de conexão com o servidor de geocodificação.");
+        if (geoResponse.status === 429) throw new Error("Limite de requisições excedido.");
+        if (!geoResponse.ok) throw new Error("Falha na API: Erro de conexão com o servidor.");
         
         const geoData = await geoResponse.json();
 
-        // 2. Tratamento de Erros: Cidade inválida ou não encontrada
+        // Verifica formato inesperado (ex: API retorna um objeto vazio em vez de ter o array 'results')
+        if (typeof geoData !== 'object' || (!geoData.results && Object.keys(geoData).length > 0)) {
+            throw new Error("Formato de resposta inesperado da API.");
+        }
+
         if (!geoData.results || geoData.results.length === 0) {
             throw new Error(`Estrela da Morte não detectou o planeta/cidade: "${city}".`);
         }
 
         const { latitude, longitude, name, admin1 } = geoData.results[0];
 
-        // 3. Buscar previsão do tempo
+        // 2. Previsão do Tempo
         const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         
-        if (!weatherResponse.ok) throw new Error("Erro de conexão com o servidor de clima.");
+        if (!weatherResponse.ok) throw new Error("Falha na API: Erro no servidor de clima.");
 
         const weatherData = await weatherResponse.json();
-        const current = weatherData.current_weather;
-
-        // Extrair informações e atualizar a interface
-        updateUI(name, admin1, current);
+        
+        return {
+            city: name,
+            state: admin1,
+            weatherInfo: weatherData.current_weather
+        };
 
     } catch (error) {
-        // Exibir mensagem de erro capturada (seja de rede, API ou cidade não encontrada)
-        showError(error.message);
+        // Intercepta erros nativos do fetch (rede desligada, DNS, etc)
+        if (error.name === 'TypeError' || error.message.includes('fetch')) {
+            throw new Error("Conexão de rede lenta ou instável.");
+        }
+        throw error; // Repassa os nossos erros customizados
     }
 }
 
-function updateUI(city, state, weatherInfo) {
+// ===== INTEGRAÇÃO COM A INTERFACE (DOM) =====
+
+function getWeatherDetails(code, isDay) {
+    const time = isDay === 1 ? 'day' : 'night';
+    const weatherCodes = {
+        0: { desc: 'Céu limpo', icon: `wi-${time}-sunny` },
+        1: { desc: 'Principalmente limpo', icon: `wi-${time}-cloudy` },
+        3: { desc: 'Nublado', icon: 'wi-cloudy' },
+        61: { desc: 'Chuva leve', icon: `wi-${time}-rain` },
+        95: { desc: 'Tempestade', icon: `wi-${time}-thunderstorm` }
+    };
+    return weatherCodes[code] || { desc: 'Clima desconhecido', icon: 'wi-na' };
+}
+
+function getFormattedDate() {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date().toLocaleDateString('pt-BR', options);
+}
+
+function setTheme(isDay) {
+    document.body.className = isDay === 1 ? 'light-side' : 'dark-side';
+}
+
+function updateUI(data) {
     errorMessage.classList.add('hidden');
     weatherResult.classList.remove('hidden');
 
-    const locationName = state ? `${city} - ${state}` : city;
-    const weatherDetails = getWeatherDetails(weatherInfo.weathercode, weatherInfo.is_day);
+    const locationName = data.state ? `${data.city} - ${data.state}` : data.city;
+    const weatherDetails = getWeatherDetails(data.weatherInfo.weathercode, data.weatherInfo.is_day);
 
-    // Atualiza o DOM
     currentDate.textContent = getFormattedDate();
     cityName.textContent = locationName;
-    temperatureValue.textContent = Math.round(weatherInfo.temperature);
+    temperatureValue.textContent = Math.round(data.weatherInfo.temperature);
     weatherDescription.textContent = weatherDetails.desc;
-    
-    // Atualiza o Ícone
     weatherIcon.className = `wi ${weatherDetails.icon}`;
 
-    // SÓ atualiza automaticamente se o usuário não tiver clicado no botão
-    if (!isManualTheme) {
-        setTheme(weatherInfo.is_day);
-    }
+    if (!isManualTheme) setTheme(data.weatherInfo.is_day);
 }
 
 function showError(message) {
@@ -119,30 +108,29 @@ function showError(message) {
     errorText.textContent = `❌ ${message}`;
 }
 
-// Event Listeners
-searchBtn.addEventListener('click', () => {
+async function handleSearch() {
     const city = cityInput.value.trim();
-    if (city !== '') getWeatherData(city);
-});
-
-cityInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        const city = cityInput.value.trim();
-        if (city !== '') getWeatherData(city);
+    try {
+        const data = await fetchWeatherData(city);
+        updateUI(data);
+    } catch (error) {
+        showError(error.message);
     }
-});
+}
 
-// Criamos uma variável para saber se você assumiu o controle manual
-let isManualTheme = false;
+// Inicializa os eventos apenas se estiver no navegador
+if (typeof document !== 'undefined') {
+    searchBtn.addEventListener('click', handleSearch);
+    cityInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') handleSearch();
+    });
+    themeToggleBtn.addEventListener('click', () => {
+        isManualTheme = true;
+        document.body.className = document.body.classList.contains('light-side') ? 'dark-side' : 'light-side';
+    });
+}
 
-// Event Listener para o botão de trocar de tema manualmente
-themeToggleBtn.addEventListener('click', () => {
-    isManualTheme = true; // A Força agora está sob seu comando!
-    
-    // Verifica qual classe está no body atualmente e inverte
-    if (document.body.classList.contains('light-side')) {
-        document.body.className = 'dark-side';
-    } else {
-        document.body.className = 'light-side';
-    }
-});
+// Exportando a função para o Jest conseguir testar no terminal
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { fetchWeatherData };
+}
