@@ -2,413 +2,334 @@
 
 /* ===== VARIÁVEIS DE TEMA (STAR WARS) ===== */
 :root {
-    /* Lado da Força (Dia) - Viagem Intergaláctica no Hiperespaço */
     --bg-color: #020617;
     --container-bg: rgba(255, 255, 255, 0.92);
     --text-color: #0f172a;
-    --accent-color: #0284c7;
-    /* Azul Hiperespaço */
+    --accent-color: #0284c7; /* Azul Hiperespaço */
     --glow-color: rgba(2, 132, 199, 0.5);
     --input-bg: #f8fafc;
     --input-border: #cbd5e1;
 }
-   /* ===== FUNDO COM GIF ANIMADO NO MODO CLARO ===== */
+
+/* ===== FUNDOS ANIMADOS (GIFS) ===== */
 body.light-side {
     background-image: url('../audio/tatooine.gif') !important;
-    background-position: center 80% !important; /* Altere aqui: quanto menor o número, mais para cima o GIF vai */
+    background-position: center 80% !important;
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
     background-size: cover !important;
     color: #0f172a;
 }
 
-    /* ===== FUNDO COM GIF ANIMADO NO MODO ESCURO ===== */
 body.dark-side {
     background: url('../audio/darth.gif') no-repeat center center fixed !important;
     background-size: cover !important;
-
-
-        /* Fundo Dark Side: Estrela da Morte no Espaço Profundo */
-        --bg-pattern:
-            radial-gradient(circle at 85% 15%, rgba(120, 120, 140, 0.18) 0%, transparent 45%),
-            radial-gradient(circle at 15% 85%, rgba(220, 38, 38, 0.06) 0%, transparent 50%),
-            url('https://www.transparenttextures.com/patterns/stardust.png'),
-            #030305;
-    }
-
-    /* ===== ESTILOS GERAIS ===== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
-    }
-
-    body {
-        background: var(--bg-pattern);
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-
-    /* Tipografia Futurista */
-    h1,
-    h2,
-    .theme-btn,
-    #search-btn {
-        font-family: 'Orbitron', sans-serif;
-    }
-
-    /* ===== CAIXA PRINCIPAL: PAINEL DA MILLENNIUM FALCON + SABRE DE LUZ ===== */
-    .container {
-        background-color: var(--container-bg);
-        backdrop-filter: blur(15px);
-        /* Efeito vidro fosco holográfico */
-        padding: 2.5rem 2rem;
-        border-radius: 10px;
-        /* Estilo mais retangular, lembrando telas de painel de nave */
-        width: 90%;
-        max-width: 440px;
-        text-align: center;
-        position: relative;
-
-        /* Efeito de Sabre de Luz nas bordas (Plasma Edge) */
-        border: 2px solid var(--accent-color);
-        box-shadow:
-            0 0 20px var(--glow-color),
-            inset 0 0 20px var(--glow-color),
-            0 0 50px rgba(0, 0, 0, 0.9);
-    }
-
-    /* ===== CAIXA PRINCIPAL (DIMINUÍDA E OTIMIZADA) ===== */
-    .container {
-        background-color: var(--container-bg);
-        backdrop-filter: blur(15px);
-        /* Efeito vidro fosco holográfico */
-        padding: 1.5rem 1.5rem;
-        /* Reduzimos o padding interno para a caixa ficar menor */
-        border-radius: 10px;
-        width: 90%;
-        max-width: 400px;
-        /* Reduzimos levemente a largura máxima */
-        text-align: center;
-        position: relative;
-        margin-bottom: 50px;
-        /* Garante um respiro para o rodapé fixo não encobrir */
-
-        /* Efeito de Sabre de Luz nas bordas (Plasma Edge) */
-        border: 2px solid var(--accent-color);
-        box-shadow:
-            0 0 20px var(--glow-color),
-            inset 0 0 20px var(--glow-color),
-            0 0 50px rgba(0, 0, 0, 0.9);
-    }
-
-    /* Criando cantos de mira holográfica estilo Cockpit da Millennium Falcon */
-    .container::before,
-    .container::after {
-        content: '';
-        position: absolute;
-        width: 15px;
-        /* Ligeiramente menor para combinar com a caixa compacta */
-        height: 15px;
-        border-color: var(--accent-color);
-        border-style: solid;
-        transition: border-color 0.4s ease;
-    }
-
-    /* Canto superior esquerdo */
-    .container::before {
-        top: -6px;
-        left: -6px;
-        border-width: 3px 0 0 3px;
-    }
-
-    /* Canto inferior direito */
-    .container::after {
-        bottom: -6px;
-        right: -6px;
-        border-width: 0 3px 3px 0;
-    }
-
-    h1 {
-        margin-bottom: 1rem;
-        font-size: 1.4rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .theme-btn {
-        background-color: transparent;
-        color: var(--text-color);
-        border: 2px solid var(--accent-color);
-        padding: 8px 16px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 0.75rem;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-
-    .theme-btn:hover {
-        background-color: var(--accent-color);
-        color: #fff;
-        box-shadow: 0 0 15px var(--accent-color);
-    }
-
-    .search-box {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 1.5rem;
-    }
-
-    #city-input {
-        flex: 1;
-        padding: 12px;
-        background-color: var(--input-bg);
-        color: var(--text-color);
-        border: 1px solid var(--input-border);
-        border-radius: 8px;
-        font-size: 0.95rem;
-        outline: none;
-    }
-
-    #city-input:focus {
-        border-color: var(--accent-color);
-        box-shadow: 0 0 10px var(--glow-color);
-    }
-
-    #search-btn {
-        padding: 12px 18px;
-        background-color: var(--accent-color);
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    #search-btn:hover {
-        filter: brightness(1.2);
-        box-shadow: 0 0 12px var(--accent-color);
-    }
-
-    .date-text {
-        font-size: 0.8rem;
-        opacity: 0.8;
-        margin-bottom: 0.5rem;
-        text-transform: capitalize;
-    }
-
-    .weather-display {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        margin: 10px 0;
-    }
-
-    #weather-icon {
-        font-size: 3.5rem;
-        color: var(--accent-color);
-        text-shadow: 0 0 15px var(--glow-color);
-    }
-
-    .temperature {
-        font-size: 3rem;
-        font-weight: bold;
-    }
-
-    .description {
-        font-size: 1.1rem;
-        font-weight: 500;
-        text-transform: capitalize;
-    }
-
-    /* ===== MÉTRICAS EXTRAS (OPÇÃO 4) ===== */
-    .extra-metrics {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1.5rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid var(--input-border);
-    }
-
-    .metric {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        font-family: 'Orbitron', sans-serif;
-    }
-
-    .metric i {
-        font-size: 1.3rem;
-        color: var(--accent-color);
-    }
-
-    .metric p {
-        font-weight: bold;
-        font-size: 1rem;
-    }
-
-    .metric small {
-        font-size: 0.7rem;
-        opacity: 0.7;
-        text-transform: uppercase;
-    }
-
-    #error-message {
-        color: var(--accent-color);
-        font-weight: 500;
-        margin-top: 1rem;
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    /* ===== TELA DE ABERTURA (STAR WARS CRAWL) ===== */
-    #intro-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #start-intro-btn {
-        padding: 20px 40px;
-        font-size: 1.3rem;
-        background: transparent;
-        color: #feda4a;
-        border: 2px solid #feda4a;
-        font-family: 'Orbitron', sans-serif;
-        cursor: pointer;
-        border-radius: 10px;
-        text-transform: uppercase;
-        transition: 0.3s;
-    }
-
-    #start-intro-btn:hover {
-        background: #feda4a;
-        color: #000;
-        box-shadow: 0 0 25px #feda4a;
-    }
-
-    #skip-intro-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: transparent;
-        color: #fff;
-        border: 1px solid #fff;
-        padding: 10px 15px;
-        cursor: pointer;
-        font-family: 'Orbitron', sans-serif;
-        z-index: 10000;
-        border-radius: 6px;
-    }
-
-    .crawl-container {
-        perspective: 800px;
-        height: 100vh;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .crawl-text {
-        color: #feda4a;
-        font-family: 'Century Gothic', Arial, sans-serif;
-        font-size: 4vh;
-        line-height: 1.5em;
-        font-weight: bold;
-        text-align: justify;
-        width: 80%;
-        max-width: 800px;
-        margin: 0 auto;
-        transform-origin: 50% 100%;
-        animation: crawl 20s linear forwards;
-    }
-
-    @keyframes crawl {
-        0% {
-            transform: rotateX(25deg) translateY(100vh);
-            opacity: 1;
-        }
-
-        90% {
-            opacity: 1;
-        }
-
-        100% {
-            transform: rotateX(25deg) translateY(-200vh);
-            opacity: 0;
-        }
-    }
-
-    /* ===== RODAPÉ INSTITUCIONAL (PRIVACIDADE E LICENCIAMENTO) ===== */
-    .app-footer {
-        position: fixed;
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 0 1rem;
-        font-size: 0.75rem;
-        z-index: 10;
-        pointer-events: none;
-    }
-
-    .app-footer p {
-        margin: 3px 0;
-        color: #ffffff;
-        /* LETRA BRANCA GARANTIDA EM AMBOS OS MODOS! */
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-        /* Sombra forte para destacar no fundo espacial */
-    }
-
-    .app-footer a {
-        color: #38bdf8;
-        /* Azul claro brilhante para os links */
-        text-decoration: none;
-        font-weight: bold;
-        pointer-events: auto;
-    }
-
-    .app-footer a:hover {
-        text-decoration: underline;
-    }
-
-/* ===== ESTILO DA CAIXA/CONTAINER NO MODO ESCURO ===== */
-body.dark-side .container, 
-body.dark-side .weather-card, 
-body.dark-side .card {
-    background: rgba(15, 15, 20, 0.85) !important; /* Fundo escuro semi-transparente para o GIF aparecer levemente atrás */
-    border: 2px solid #dc2626 !important; /* Borda vermelha holográfica do Lado Sombrio */
-    color: #f8fafc !important; /* Textos brancos/claros */
-    box-shadow: 0 0 30px rgba(220, 38, 38, 0.5) !important; /* Brilho vermelho ao redor da caixa */
+    color: #f8fafc;
+    
+    /* Fundo de fallback caso o GIF não carregue */
+    --bg-pattern:
+        radial-gradient(circle at 85% 15%, rgba(120, 120, 140, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(220, 38, 38, 0.06) 0%, transparent 50%),
+        url('https://www.transparenttextures.com/patterns/stardust.png'),
+        #030305;
 }
 
-/* Garante que os textos e inputs dentro da caixa fiquem legíveis no escuro */
-body.dark-side input, 
-body.dark-side p, 
-body.dark-side span, 
-body.dark-side h1, 
-body.dark-side h2, 
-body.dark-side h3 {
+/* ===== ESTILOS GERAIS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body {
+    background: var(--bg-pattern);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: crosshair !important; /* Mira de precisão */
+}
+
+button, a, input, label, select, .theme-btn, #search-btn {
+    cursor: pointer !important;
+}
+
+h1, h2, .theme-btn, #search-btn {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* ===== CAIXA PRINCIPAL (DATAPAD COMPACTO) ===== */
+.container {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(2, 6, 23, 0.98) 100%) !important;
+    backdrop-filter: blur(15px);
+    /* CAIXA MENOR E COM MENOS ESPAÇAMENTO */
+    padding: 1.5rem 1.2rem !important; 
+    border-radius: 0 !important;
+    width: 92%;
+    max-width: 360px; /* Reduzido de 420px para 360px */
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+    
+    border: 1px solid var(--accent-color) !important;
+    box-shadow: 0 0 20px var(--glow-color), inset 0 0 20px rgba(0, 0, 0, 0.9) !important;
+}
+
+body.light-side .container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 248, 0.95) 100%) !important;
+}
+
+/* ===== BARRA DE STATUS NO TOPO ===== */
+.container::before {
+    content: "SYS_CORE: ACTIVE // SEC_CODE: SW-77";
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.5rem; /* Fonte menor */
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.25);
+    padding: 4px 0;
+    margin: -1.5rem -1.2rem 1.2rem -1.2rem; /* Ajustado para bater com o novo padding da caixa */
+    border-bottom: 1px dashed var(--accent-color);
+    text-transform: uppercase;
+}
+
+body.light-side .container::before {
+    background: rgba(2, 132, 199, 0.1);
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 10px; height: 10px;
+    border-bottom: 2px solid var(--accent-color);
+    border-right: 2px solid var(--accent-color);
+}
+
+/* ===== CABEÇALHO & BUSCA (FONTES MENORES) ===== */
+h1 {
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem; /* Reduzido */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.theme-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.65rem; /* Reduzido */
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.theme-btn:hover, #search-btn:hover {
+    animation: buttonGlitch 0.3s cubic-bezier(.25, .46, .45, .94) both !important;
+}
+
+.search-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.2rem;
+}
+
+#city-input {
+    flex: 1;
+    padding: 10px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 0.85rem; /* Reduzido */
+    outline: none;
+}
+
+#city-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--glow-color);
+}
+
+#search-btn {
+    padding: 10px 14px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+#search-btn:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* ===== DATA E DESCRIÇÃO DO CLIMA (Alta Visibilidade) ===== */
+.date-text {
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    color: #020617 !important; /* Muito escuro no modo claro */
+    opacity: 1 !important; /* Sem transparência */
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+#city-name {
+    font-size: 1.1rem; /* Reduzido */
+    margin-bottom: 0.8rem;
+}
+
+.current-weather-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px; /* Reduzido */
+    margin: 0.8rem 0;
+}
+
+.current-weather-display #weather-icon {
+    font-size: 2.8rem !important; /* ÍCONE PRINCIPAL MENOR */
+    margin: 0;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.temp-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.temp-wrapper .temperature {
+    font-size: 2.8rem !important; /* TEMPERATURA MENOR */
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+}
+
+.temp-wrapper .celsius {
+    font-size: 1.2rem; /* Reduzido */
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+#weather-description {
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 900 !important; /* Negrito máximo */
+    color: #020617 !important;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== CAIXINHAS INFERIORES (COMPACTAS) ===== */
+.extra-metrics, .forecast-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 6px !important; /* Espaço bem apertado para caber na caixa menor */
+    margin-top: 1rem !important;
+    width: 100% !important;
+}
+
+.forecast-container {
+    padding-top: 1rem !important;
+    border-top: 1px dashed var(--accent-color) !important;
+}
+
+.metric, .forecast-card {
+    flex: 1;
+    padding: 8px 4px !important; /* Mais fino */
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: inset 0 0 8px var(--glow-color);
+}
+
+body.light-side .metric, body.light-side .forecast-card {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.metric i, .forecast-card i {
+    font-size: 1rem !important; /* ÍCONES MENORES */
+    margin-bottom: 4px;
+    color: var(--accent-color);
+}
+
+.metric p, .forecast-card p {
+    font-size: 0.75rem !important; /* TEXTOS MENORES */
+    font-weight: bold;
+}
+
+.metric small, .forecast-day {
+    font-size: 0.55rem !important; /* TEXTOS DE BASE MENORES */
+    display: block;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ===== TELA DE ABERTURA (CRAWL) ===== */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+}
+#start-intro-btn {
+    padding: 15px 30px; font-size: 1.1rem; background: transparent;
+    color: #feda4a; border: 2px solid #feda4a; font-family: 'Orbitron', sans-serif;
+    border-radius: 8px; text-transform: uppercase;
+}
+#start-intro-btn:hover { background: #feda4a; color: #000; box-shadow: 0 0 20px #feda4a; }
+#skip-intro-btn {
+    position: absolute; top: 20px; right: 20px; background: transparent;
+    color: #fff; border: 1px solid #fff; padding: 8px 12px;
+    font-family: 'Orbitron', sans-serif; z-index: 10000; border-radius: 6px; font-size: 0.8rem;
+}
+.crawl-container { perspective: 800px; height: 100vh; width: 100%; overflow: hidden; }
+.crawl-text {
+    color: #feda4a; font-family: 'Century Gothic', Arial, sans-serif;
+    font-size: 3.5vh; line-height: 1.5em; font-weight: bold; text-align: justify;
+    width: 85%; max-width: 800px; margin: 0 auto; transform-origin: 50% 100%;
+    animation: crawl 20s linear forwards;
+}
+@keyframes crawl {
+    0% { transform: rotateX(25deg) translateY(100vh); opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: rotateX(25deg) translateY(-200vh); opacity: 0; }
+}
+
+/* ===== ANIMAÇÃO GLITCH ===== */
+@keyframes buttonGlitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* ===== MODO ESCURO (LADO SOMBRIO) ===== */
+body.dark-side .container {
+    background: rgba(15, 15, 20, 0.85) !important; 
+    border: 1px solid #dc2626 !important; 
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.9) !important; 
+}
+
+body.dark-side input, body.dark-side p, body.dark-side span, 
+body.dark-side h1, body.dark-side h2, body.dark-side small, body.dark-side .forecast-day {
     color: #f8fafc !important;
 }
 
@@ -417,140 +338,193 @@ body.dark-side input {
     border-color: #dc2626 !important;
 }
 
-/* ===== CONVERTENDO AZUL JEDI PARA VERMELHO SITH ===== */
-
-/* 1. Botão de Busca */
-body.dark-side .search-btn, 
-body.dark-side button {
-    background-color: #991b1b !important; /* Vermelho escuro */
-    border: 1px solid #dc2626 !important;
+body.dark-side .theme-btn, body.dark-side #search-btn {
+    background-color: #991b1b !important; 
+    border-color: #dc2626 !important;
     color: white !important;
-    box-shadow: 0 0 15px rgba(220, 38, 38, 0.4) !important;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.4) !important;
 }
-
-/* Efeito de passar o mouse no botão (para não ficar azul) */
-body.dark-side .search-btn:hover {
+body.dark-side .theme-btn:hover, body.dark-side #search-btn:hover {
     background-color: #dc2626 !important;
-    box-shadow: 0 0 20px #dc2626 !important;
+    box-shadow: 0 0 15px #dc2626 !important;
 }
 
-/* 2. Miras e Elementos Decorativos (Targets) */
-/* Se as miras forem feitas com bordas */
-body.dark-side .mira, 
-body.dark-side .target, 
-body.dark-side .border-element {
+body.dark-side .container::before, body.dark-side .container::after {
+    border-color: #dc2626 !important; color: #dc2626 !important;
+}
+body.dark-side i {
+    color: #dc2626 !important; text-shadow: 0 0 10px rgba(220, 38, 38, 0.6) !important;
+}
+/* Corrige a linha tracejada que divide os dias para vermelho no modo escuro */
+body.dark-side .forecast-container {
+    border-top: 1px dashed #dc2626 !important;
+}
+body.dark-side .metric, body.dark-side .forecast-card {
+    background: rgba(15, 20, 30, 0.7) !important;
     border-color: #dc2626 !important;
-    box-shadow: 0 0 10px rgba(220, 38, 38, 0.6) !important;
+    box-shadow: inset 0 0 6px rgba(220, 38, 38, 0.4) !important;
+}
+/* Deixa tudo Branco Metálico no Modo Escuro */
+body.dark-side .date-text,
+body.dark-side #weather-description {
+    color: #f8fafc !important; 
 }
 
-/* Se as miras forem SVGs */
-body.dark-side .mira svg, 
-body.dark-side .target svg {
-    stroke: #dc2626 !important;
-    fill: #dc2626 !important;
+/* ===== EFEITO SCANLINES (MONITOR CRT) ===== */
+.crt-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+    background-size: 100% 4px; z-index: 999; pointer-events: none;
+    animation: flicker 0.15s infinite; opacity: 0.8;
+}
+@keyframes flicker {
+    0% { opacity: 0.8; } 50% { opacity: 0.85; } 100% { opacity: 0.8; }
 }
 
-/* 3. Qualquer outro detalhe que esteja azul */
-body.dark-side .accent-blue {
-    color: #ef4444 !important;
-    border-color: #ef4444 !important;
+/* ===== RODAPÉ ESTILO RETRO-TECH (FORCECAST) ===== */
+.app-footer {
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
 }
 
-/* ===== MIRA EM VERMELHO NO MODO ESCURO ===== */
-body.dark-side .container::before,
-body.dark-side .container::after {
-    border-color: #dc2626 !important;
+.app-footer p {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif; /* Fonte futurista */
+    font-size: 0.8rem !important;
+    font-weight: 700;
+    color: var(--accent-color); /* Azul brilhante no Modo Claro */
+    text-shadow: 0 0 8px var(--glow-color); /* Brilho neon */
+    letter-spacing: 2px;
 }
 
-/* ===== RODAPÉ VERMELHO SITH NO MODO ESCURO ===== */
-body.dark-side .app-footer a {
-    color: #dc2626 !important; /* Vermelho padrão do seu modo escuro */
+/* Transforma o rodapé em vermelho no Modo Escuro */
+body.dark-side .app-footer p {
+    color: #dc2626 !important;
+    text-shadow: 0 0 8px rgba(220, 38, 38, 0.6) !important;
 }
 
-body.dark-side .app-footer a:hover {
-    color: #ef4444 !important; /* Vermelho um pouco mais claro ao passar o mouse */
+/* Auxiliares */
+.hidden { display: none !important; }
+#error-message { color: var(--accent-color); font-weight: bold; margin-top: 1rem; font-size: 0.95rem; }
+body.dark-side #error-message { color: #ef4444 !important; }
+
+/* ===== RESPONSIVIDADE (A caixa já é pequena, ajustes mínimos) ===== */
+@media (max-width: 400px) {
+    .container {
+        width: 95% !important;
+        padding: 1.2rem 1rem !important;
+    }
+    .current-weather-display { gap: 10px; }
+    .current-weather-display #weather-icon { font-size: 2.5rem !important; }
+    .temp-wrapper .temperature { font-size: 2.5rem !important; }
+    .temp-wrapper .celsius { font-size: 1rem; }
+}
+
+/* ===== 1. VISIBILIDADE MÁXIMA PARA OS RÓTULOS (Vento, Chuva, Umidade, Dias) ===== */
+.metric small, .forecast-day {
+    font-family: 'Segoe UI', Arial, sans-serif !important; /* Fonte sólida e sem recortes */
+    font-size: 0.65rem !important;
+    font-weight: 900 !important; /* Negrito extra forte */
+    color: #020617 !important; /* Preto/Azul super escuro no Modo Claro */
+    opacity: 1 !important; /* Força 100% de cor, sem transparência */
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+/* Rótulos ficam brancos/claros no Modo Escuro */
+body.dark-side .metric small, body.dark-side .forecast-day {
+    color: #f8fafc !important; 
+}
+
+
+/* ===== 2. RODAPÉ (Texto Branco + Link Colorido) ===== */
+.app-footer {
+    position: fixed;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none; /* Evita que o rodapé bloqueie cliques na tela */
+}
+
+.app-footer p {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    color: #ffffff !important; /* Texto SEMPRE BRANCO (Claro e Escuro) */
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 1) !important; /* Sombra preta forte para destacar no GIF */
+    letter-spacing: 1px;
+}
+
+/* Link Open-Meteo (Azul no Modo Claro) */
+.app-footer a {
+    color: #38bdf8 !important; /* Azul neon/claro */
+    text-decoration: none;
+    font-weight: 900;
+    pointer-events: auto; /* Deixa o link clicável */
+    text-shadow: none !important;
+}
+
+.app-footer a:hover {
     text-decoration: underline;
 }
 
-/* ===== EFEITO DE SCANLINES (TELA DE MONITOR ANTIGO) ===== */
-.crt-overlay {
+/* Link Open-Meteo (Vermelho no Modo Escuro) */
+body.dark-side .app-footer a {
+    color: #ef4444 !important; /* Vermelho Sith */
+}
+
+/* ===== CORREÇÃO DO FUNDO DO VADER NO CELULAR ===== */
+@media (max-width: 768px) {
+    body.dark-side {
+        /* Move o foco do GIF para a esquerda ou direita no mobile onde o personagem aparece, 
+           ou você pode trocar para background-size: 100% 100% se quiser espremer ele na tela */
+        background-position: 25% center !important; 
+        background-size: cover !important;
+    }
+
+    body.light-side {
+        background-position: center center !important;
+        background-size: cover !important;
+    }
+}
+
+/* ===== LOGOTIPO NO CANTO SUPERIOR ESQUERDO ===== */
+.brand-logo {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* Linhas horizontais */
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
-    background-size: 100% 4px; /* Espessura da linha */
-    z-index: 999;
-    pointer-events: none; /* CRUCIAL: Deixa o mouse clicar nos botões por baixo */
-    animation: flicker 0.15s infinite; /* Cintilação sutil */
-    opacity: 0.8;
+    top: 15px;
+    left: 15px;
+    width: 120px; /* Tamanho compacto e discreto */
+    height: auto;
+    z-index: 1000; /* Garante que fique acima de tudo */
+    filter: drop-shadow(0 0 8px var(--glow-color));
+    transition: opacity 0.4s ease, filter 0.4s ease; /* Adicione isso */
+    animation: pulseGlow 3s infinite alternate;
 }
 
-@keyframes flicker {
-    0% { opacity: 0.8; }
-    50% { opacity: 0.85; }
-    100% { opacity: 0.8; }
+.brand-logo:hover {
+    transform: scale(1.08); /* Efeito de zoom sutil ao passar o mouse */
 }
 
-/* ===== PAINEL DE DIAGNÓSTICO ADAPTATIVO (CLARO E ESCURO) ===== */
-.extra-metrics {
-    background: rgba(255, 255, 255, 0.5) !important; /* Fundo suave no modo claro */
-    border: 1px solid var(--accent-color) !important;
-    border-radius: 6px;
-    padding: 12px !important;
-    margin-top: 1.5rem;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+@keyframes pulseGlow {
+    from { filter: drop-shadow(0 0 5px var(--glow-color)); }
+    to { filter: drop-shadow(0 0 15px var(--glow-color)); }
 }
 
-.metric {
-    background: rgba(255, 255, 255, 0.7) !important; /* Caixinhas claras no modo claro */
-    border: 1px solid var(--accent-color) !important;
-    padding: 10px 8px;
-    border-radius: 4px;
-    box-shadow: inset 0 0 8px var(--glow-color) !important;
-    transition: all 0.3s ease;
-}
-
-/* ===== APENAS NO MODO ESCURO: Vira painel de nave sombrio ===== */
-body.dark-side .extra-metrics {
-    background: rgba(0, 0, 0, 0.3) !important;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-side .metric {
-    background: rgba(15, 20, 30, 0.7) !important; /* Caixinhas escuras com neon no escuro */
-}
-
-/* Efeito ao passar o mouse */
-.metric:hover {
-    border-color: var(--text-color) !important;
-    box-shadow: inset 0 0 12px var(--accent-color), 0 0 10px var(--glow-color) !important;
-    transform: translateY(-2px);
-}
-
-/* ===== PASSO 3: CURSOR DE MIRA ESPACIAL (TARGETING COMPUTER) ===== */
-body {
-    cursor: crosshair !important; /* Transforma o mouse em uma mira de precisão (+) */
-}
-
-/* Garante que botões, inputs, links e elementos clicáveis voltem ao ponteiro normal de interação */
-button, a, input, label, select, .theme-btn, #search-btn {
-    cursor: pointer !important;
-}
-
-/* ===== PASSO 4: EFEITO DE GLITCH NOS BOTÕES ===== */
-.theme-btn:hover, 
-#search-btn:hover {
-    animation: buttonGlitch 0.3s cubic-bezier(.25, .46, .45, .94) both !important;
-}
-
-@keyframes buttonGlitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+/* Ajuste para telas menores (celular) para não tampar textos importantes */
+@media (max-width: 768px) {
+    .brand-logo {
+        width: 70px;
+        top: 10px;
+        left: 10px;
+    }
 }

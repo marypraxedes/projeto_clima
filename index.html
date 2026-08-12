@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previsão do Tempo</title>
+    <title>ForceCast - Previsão do Tempo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+    <!-- FAVICON DA ABA -->
+<link id="app-favicon" rel="icon" type="image/png" href="images/logo-light.png">
 </head>
 <body class="light-side">
     
@@ -23,86 +25,104 @@
                 <h1 style="text-align: center; margin-bottom: 2rem;">A AMEAÇA DO CLIMA</h1>
                 <p>A galáxia está em tumulto. A incerteza climática domina os sistemas estelares do núcleo até a Orla Exterior.</p>
                 <br>
-                <p>Uma nova esperança surge com um aplicativo capaz de prever o tempo em qualquer planeta ou cidade usando dados em tempo real.</p>
+                <p>Uma nova esperança surge com o ForceCast, um aplicativo capaz de prever o tempo em qualquer planeta ou cidade usando dados em tempo real.</p>
                 <br>
                 <p>Que a Força guie suas previsões...</p>
             </div>
         </div>
     </div>
 
-    <!-- APLICATIVO PRINCIPAL -->
-    <main class="container hidden" id="app-main">
-        <h1>Meteorologia Galáctica</h1>
+    <!-- LOGOTIPO FIXO NO CANTO SUPERIOR ESQUERDO -->
+    <img id="app-logo" src="images/logo-light.png" alt="ForceCast Logo" class="brand-logo">
+
+    <!-- O PAINEL PRINCIPAL -->
+    <div class="container">
         
-        <button id="theme-toggle" class="theme-btn">
-            Trocar Lado da Força ⚔️
-        </button>
-        
+        <!-- TÍTULO E BUSCA -->
+        <h1>ForceCast</h1>
+        <button id="theme-toggle" class="theme-btn">Trocar Lado da Força ⚔️</button>
+
         <div class="search-box">
-            <input type="text" id="city-input" placeholder="Qual planeta ou cidade?">
-            <button id="search-btn">Buscar</button>
+            <input type="text" id="city-input" placeholder="Informe o planeta ou cidade...">
+            <button id="geo-btn" class="search-btn" title="Usar minha localização">📍</button>
+            <button id="search-btn" class="search-btn">Buscar</button>
         </div>
 
+        <!-- RESULTADOS DO CLIMA (Ocultos até buscar) -->
         <div id="weather-result" class="hidden">
-            <p id="current-date" class="date-text">--</p>
-            <h2 id="city-name">--</h2>
-            
-            <div class="weather-display">
-                <i id="weather-icon" class="wi wi-na"></i>
-                <p class="temperature">
-                    <span id="temperature-value">--</span>°C
-                </p>
-            </div>
-            
-            <p id="weather-description" class="description">--</p>
+            <p id="current-date" class="date-text">Quarta-Feira, 12 De Agosto De 2026</p>
+            <h2 id="city-name">Resende, Rio de Janeiro</h2>
 
-            <!-- NOVAS VARIÁVEIS METEOROLÓGICAS (OPÇÃO 4) -->
+            <!-- CLIMA ATUAL -->
+            <div class="current-weather-display">
+                <i id="weather-icon" class="wi wi-day-cloudy"></i>
+                <div class="temp-wrapper">
+                    <span id="temperature-value" class="temperature">--</span>
+                    <span class="celsius">°C</span>
+                </div>
+            </div>
+            <p id="weather-description">Principalmente Limpo</p>
+
+            <!-- CAIXAS DE UMIDADE/VENTO/CHUVA -->
             <div class="extra-metrics">
                 <div class="metric">
-                    <i class="wi wi-humidity"></i>
+                    <i class="fas fa-tint"></i>
                     <p><span id="humidity-value">--</span>%</p>
-                    <small>Umidade</small>
+                    <small>UMIDADE</small>
                 </div>
                 <div class="metric">
-                    <i class="wi wi-strong-wind"></i>
+                    <i class="fas fa-wind"></i>
                     <p><span id="wind-value">--</span> km/h</p>
-                    <small>Vento</small>
+                    <small>VENTO</small>
                 </div>
                 <div class="metric">
-                    <i class="wi wi-raindrops"></i>
+                    <i class="fas fa-cloud-rain"></i>
                     <p><span id="precip-value">--</span> mm</p>
-                    <small>Chuva</small>
+                    <small>CHUVA</small>
+                </div>
+            </div>
+
+            <!-- CAIXAS DA PREVISÃO DOS 3 DIAS -->
+            <div class="forecast-container">
+                <div class="forecast-card" id="forecast-0">
+                    <span class="forecast-day">QUI.</span>
+                    <i class="fas fa-cloud-sun"></i>
+                    <p>--° / --°</p>
+                </div>
+                <div class="forecast-card" id="forecast-1">
+                    <span class="forecast-day">SEX.</span>
+                    <i class="fas fa-sun"></i>
+                    <p>--° / --°</p>
+                </div>
+                <div class="forecast-card" id="forecast-2">
+                    <span class="forecast-day">SÁB.</span>
+                    <i class="fas fa-cloud-rain"></i>
+                    <p>--° / --°</p>
                 </div>
             </div>
         </div>
 
-        <div id="error-message" class="hidden">
-            <p id="error-text">❌ Algo deu errado.</p>
-        </div>
-    </main>
+        <!-- MENSAGEM DE ERRO ÚNICA -->
+        <p id="error-message" class="hidden"><span id="error-text">❌ Algo deu errado.</span></p>
 
-    <!-- Rodapé Institucional (Privacidade e Licenciamento) -->
+    </div>
+
+    <!-- RODAPÉ ESTILO RETRO/TECH -->
     <footer class="app-footer">
-        <p>
-            🔒 Esta aplicação não coleta, armazena ou compartilha dados pessoais. As buscas são processadas em tempo real e não são registradas.
-        </p>
-        <p>
-            📊 Dados meteorológicos fornecidos por <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo.com</a> sob licença <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
-        </p>
+        <p>▼ ForceCast &copy; 2026 | Dados via <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> ▼</p>
     </footer>
 
+    <!-- ÁUDIOS -->
     <audio id="audio-theme" src="audio/imperial_march.mp3" preload="auto"></audio>
     <audio id="audio-sith" src="https://www.myinstants.com/media/sounds/lightsaber_02.mp3" preload="auto"></audio>
     <audio id="audio-jedi" src="https://www.myinstants.com/media/sounds/lightsaber_off.mp3" preload="auto"></audio>
-    <!-- Sons do Sistema -->
     <audio id="ambient-light" src="audio/tie-fighter-flyby-3.mp3" preload="auto" loop></audio>
-    <audio id="vader-speech-audio" src="audio/ihaveyounow.mp3" preload="auto"></audio> <!-- Fala do Vader (toca 1 vez) -->
-    <audio id="ambient-dark" src="audio/darth-vader.mp3" preload="auto" loop></audio> <!-- Som ambiente escuro em loop -->
+    <audio id="vader-speech-audio" src="audio/ihaveyounow.mp3" preload="auto"></audio>
+    <audio id="ambient-dark" src="audio/darth-vader.mp3" preload="auto" loop></audio>
 
     <!-- Efeito de monitor antigo (Scanlines) -->
     <div class="crt-overlay"></div>
 
-
-    <script src="js/api.js"></script>
+    <script src="js/api.js" defer></script>
 </body>
 </html>
