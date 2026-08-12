@@ -1,21 +1,23 @@
-// ===== ELEMENTOS DA DOM =====
-const cityInput = typeof document !== 'undefined' ? document.getElementById('city-input') : null;
-const searchBtn = typeof document !== 'undefined' ? document.getElementById('search-btn') : null;
-const weatherResult = typeof document !== 'undefined' ? document.getElementById('weather-result') : null;
-const errorMessage = typeof document !== 'undefined' ? document.getElementById('error-message') : null;
-const errorText = typeof document !== 'undefined' ? document.getElementById('error-text') : null;
-const currentDate = typeof document !== 'undefined' ? document.getElementById('current-date') : null;
-const cityName = typeof document !== 'undefined' ? document.getElementById('city-name') : null;
-const temperatureValue = typeof document !== 'undefined' ? document.getElementById('temperature-value') : null;
-const weatherDescription = typeof document !== 'undefined' ? document.getElementById('weather-description') : null;
-const weatherIcon = typeof document !== 'undefined' ? document.getElementById('weather-icon') : null;
-const themeToggleBtn = typeof document !== 'undefined' ? document.getElementById('theme-toggle') : null;
+/**
+ * @fileoverview Lógica principal do aplicativo de Previsão do Tempo (Star Wars Theme).
+ * Realiza requisições para a API Open-Meteo, trata dados climáticos e manipula a interface.
+ */
 
-let isManualTheme = false;
+// Constantes para as APIs (Melhoria de Eficiência e Manutenção)
+const API_GEO_URL = 'https://geocoding-api.open-meteo.com/v1/search';
+const API_WEATHER_URL = 'https://api.open-meteo.com/v1/forecast';
 
-// ===== LÓGICA DE NEGÓCIO (TESTÁVEL COM JEST) =====
-
-// Função centralizada apenas para buscar os dados, sem mexer na tela
+/**
+ * Busca os dados meteorológicos de uma cidade usando a API Open-Meteo.
+ *
+ * @async
+ * @param {string} city - O nome da cidade (ou planeta) a ser pesquisado.
+ * @returns {Promise<Object>} Um objeto contendo o nome da cidade, estado e os dados climáticos.
+ * @throws {Error} Lança um erro se a entrada for vazia, se a cidade não for encontrada, ou em falhas de rede/API.
+ * @example
+ * const clima = await fetchWeatherData("São Paulo");
+ * console.log(clima.city, clima.weatherInfo.temperature); // Retorna: São Paulo, 24.5
+ */
 async function fetchWeatherData(city) {
     if (!city || city.trim() === '') {
         throw new Error("Entrada vazia. Informe um planeta ou cidade.");
@@ -23,14 +25,13 @@ async function fetchWeatherData(city) {
 
     try {
         // 1. Geocodificação
-        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=pt`);
+        const geoResponse = await fetch(`${API_GEO_URL}?name=${encodeURIComponent(city)}&count=1&language=pt`);
         
         if (geoResponse.status === 429) throw new Error("Limite de requisições excedido.");
         if (!geoResponse.ok) throw new Error("Falha na API: Erro de conexão com o servidor.");
         
         const geoData = await geoResponse.json();
 
-        // Verifica formato inesperado (ex: API retorna um objeto vazio em vez de ter o array 'results')
         if (typeof geoData !== 'object' || (!geoData.results && Object.keys(geoData).length > 0)) {
             throw new Error("Formato de resposta inesperado da API.");
         }
@@ -42,7 +43,7 @@ async function fetchWeatherData(city) {
         const { latitude, longitude, name, admin1 } = geoData.results[0];
 
         // 2. Previsão do Tempo
-        const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+        const weatherResponse = await fetch(`${API_WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         
         if (!weatherResponse.ok) throw new Error("Falha na API: Erro no servidor de clima.");
 
@@ -55,16 +56,22 @@ async function fetchWeatherData(city) {
         };
 
     } catch (error) {
-        // Intercepta erros nativos do fetch (rede desligada, DNS, etc)
-        if (error.name === 'TypeError' || error.message.includes('fetch')) {
+        if (error.name === 'TypeError' || (error.message && error.message.includes('fetch'))) {
             throw new Error("Conexão de rede lenta ou instável.");
         }
-        throw error; // Repassa os nossos erros customizados
+        throw error;
     }
 }
 
-// ===== INTEGRAÇÃO COM A INTERFACE (DOM) =====
+// ===== LÓGICA DE INTERFACE (Isolada para não quebrar no Jest) =====
 
+/**
+ * Mapeia o código do clima para uma descrição amigável e um ícone.
+ * 
+ * @param {number} code - Código meteorológico da WMO.
+ * @param {number} isDay - 1 para dia, 0 para noite.
+ * @returns {Object} Objeto contendo `desc` (descrição) e `icon` (classe do ícone).
+ */
 function getWeatherDetails(code, isDay) {
     const time = isDay === 1 ? 'day' : 'night';
     const weatherCodes = {
@@ -77,60 +84,53 @@ function getWeatherDetails(code, isDay) {
     return weatherCodes[code] || { desc: 'Clima desconhecido', icon: 'wi-na' };
 }
 
-function getFormattedDate() {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date().toLocaleDateString('pt-BR', options);
-}
+let isManualTheme = false;
 
-function setTheme(isDay) {
-    document.body.className = isDay === 1 ? 'light-side' : 'dark-side';
-}
-
-function updateUI(data) {
-    errorMessage.classList.add('hidden');
-    weatherResult.classList.remove('hidden');
-
-    const locationName = data.state ? `${data.city} - ${data.state}` : data.city;
-    const weatherDetails = getWeatherDetails(data.weatherInfo.weathercode, data.weatherInfo.is_day);
-
-    currentDate.textContent = getFormattedDate();
-    cityName.textContent = locationName;
-    temperatureValue.textContent = Math.round(data.weatherInfo.temperature);
-    weatherDescription.textContent = weatherDetails.desc;
-    weatherIcon.className = `wi ${weatherDetails.icon}`;
-
-    if (!isManualTheme) setTheme(data.weatherInfo.is_day);
-}
-
-function showError(message) {
-    weatherResult.classList.add('hidden');
-    errorMessage.classList.remove('hidden');
-    errorText.textContent = `❌ ${message}`;
-}
-
-async function handleSearch() {
-    const city = cityInput.value.trim();
-    try {
-        const data = await fetchWeatherData(city);
-        updateUI(data);
-    } catch (error) {
-        showError(error.message);
-    }
-}
-
-// Inicializa os eventos apenas se estiver no navegador
+// Função que inicializa a manipulação da tela apenas se estiver rodando no navegador
 if (typeof document !== 'undefined') {
+    const cityInput = document.getElementById('city-input');
+    const searchBtn = document.getElementById('search-btn');
+    const weatherResult = document.getElementById('weather-result');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    function updateUI(data) {
+        errorMessage.classList.add('hidden');
+        weatherResult.classList.remove('hidden');
+
+        const details = getWeatherDetails(data.weatherInfo.weathercode, data.weatherInfo.is_day);
+        
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('city-name').textContent = data.state ? `${data.city} - ${data.state}` : data.city;
+        document.getElementById('temperature-value').textContent = Math.round(data.weatherInfo.temperature);
+        document.getElementById('weather-description').textContent = details.desc;
+        document.getElementById('weather-icon').className = `wi ${details.icon}`;
+
+        if (!isManualTheme) document.body.className = data.weatherInfo.is_day === 1 ? 'light-side' : 'dark-side';
+    }
+
+    async function handleSearch() {
+        try {
+            const data = await fetchWeatherData(cityInput.value.trim());
+            updateUI(data);
+        } catch (error) {
+            weatherResult.classList.add('hidden');
+            errorMessage.classList.remove('hidden');
+            errorText.textContent = `❌ ${error.message}`;
+        }
+    }
+
     searchBtn.addEventListener('click', handleSearch);
-    cityInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') handleSearch();
-    });
+    cityInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearch(); });
+    
     themeToggleBtn.addEventListener('click', () => {
         isManualTheme = true;
         document.body.className = document.body.classList.contains('light-side') ? 'dark-side' : 'light-side';
     });
 }
 
-// Exportando a função para o Jest conseguir testar no terminal
+// Exportação para o Jest
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { fetchWeatherData };
 }
