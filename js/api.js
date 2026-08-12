@@ -112,6 +112,14 @@ if (typeof document !== 'undefined') {
 
         introScreen.classList.add('hidden');
         appMain.classList.remove('hidden');
+
+        // ===== ADICIONE ESTE BLOCO AQUI =====
+        const ambientLight = document.getElementById('ambient-light');
+        if (ambientLight && document.body.classList.contains('light-side')) {
+            ambientLight.volume = 0.2;
+            ambientLight.play().catch(e => console.log("Áudio ambiente liberado:", e));
+        }
+        // ===================================
     }
 
     const cityInput = document.getElementById('city-input');
@@ -160,13 +168,53 @@ if (typeof document !== 'undefined') {
 
     themeToggleBtn.addEventListener('click', () => {
         isManualTheme = true;
+        const vaderCompanion = document.getElementById('vader-companion');
+        
+        // Elementos de áudio
+        const ambientLight = document.getElementById('ambient-light');
+        const vaderSpeech = document.getElementById('vader-speech-audio'); // A fala "I have you now"
+        const ambientDark = document.getElementById('ambient-dark');     // O som ambiente escuro
 
         if (document.body.classList.contains('light-side')) {
             document.body.className = 'dark-side';
-            playAudio(saberSith); // Barulho do sabre vermelho
+            playAudio(saberSith); // Som clássico do sabre Sith
+
+            // Para o som do lado claro
+            if(ambientLight) ambientLight.pause();
+            
+            // 1. Toca a fala do Darth Vader ("I have you now") imediatamente
+            if(vaderSpeech) {
+                vaderSpeech.currentTime = 0; // Reinicia o áudio caso seja clicado de novo
+                vaderSpeech.volume = 0.8;    // Volume bem nítido
+                vaderSpeech.play().catch(e => console.log("Áudio bloqueado"));
+            }
+
+            // 2. Toca o som ambiente escuro em loop (respiração ou zumbido)
+            if(ambientDark) {
+                ambientDark.volume = 0.2;
+                ambientDark.play().catch(e => console.log("Áudio bloqueado"));
+            }
+
+            if (vaderCompanion) {
+                vaderCompanion.classList.add('active');
+            }
         } else {
             document.body.className = 'light-side';
-            playAudio(saberJedi); // Barulho do sabre azul
+            playAudio(saberJedi); // Som do sabre Jedi
+
+            // Pausa os sons do lado escuro
+            if(vaderSpeech) vaderSpeech.pause();
+            if(ambientDark) ambientDark.pause();
+            
+            // Retoma o som ambiente do lado claro
+            if(ambientLight) {
+                ambientLight.volume = 0.2;
+                ambientLight.play().catch(e => console.log("Áudio bloqueado"));
+            }
+
+            if (vaderCompanion) {
+                vaderCompanion.classList.remove('active');
+            }
         }
     });
 }
