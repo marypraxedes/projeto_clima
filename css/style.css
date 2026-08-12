@@ -11,7 +11,7 @@
     --input-bg: #f8fafc;
     --input-border: #cbd5e1;
     
-    /* Fundo Light Side: Céu azul profundo com efeito de Viagem Intergaláctica (Hiperespaço) */
+    /* Fundo Light Side: Céu azul profundo com efeito de Viagem Intergaláctica */
     --bg-pattern: 
         radial-gradient(ellipse at center, rgba(56, 189, 248, 0.25) 0%, transparent 70%),
         linear-gradient(to bottom, rgba(3, 105, 161, 0.15), rgba(15, 23, 42, 0.8)),
@@ -63,17 +63,49 @@ h1, h2, .theme-btn, #search-btn {
     font-family: 'Orbitron', sans-serif;
 }
 
-/* ===== APLICATIVO PRINCIPAL ===== */
+/* ===== CAIXA PRINCIPAL: PAINEL DA MILLENNIUM FALCON + SABRE DE LUZ ===== */
 .container {
     background-color: var(--container-bg);
-    backdrop-filter: blur(12px); /* Efeito vidro fosco holográfico */
-    padding: 2rem;
-    border-radius: 16px;
+    backdrop-filter: blur(15px); /* Efeito vidro fosco holográfico */
+    padding: 2.5rem 2rem;
+    border-radius: 10px; /* Estilo mais retangular, lembrando telas de painel de nave */
     width: 90%;
-    max-width: 420px;
+    max-width: 440px;
     text-align: center;
+    position: relative;
+    
+    /* Efeito de Sabre de Luz nas bordas (Plasma Edge) */
     border: 2px solid var(--accent-color);
-    box-shadow: 0 0 25px var(--glow-color), inset 0 0 15px var(--glow-color);
+    box-shadow: 
+        0 0 20px var(--glow-color), 
+        inset 0 0 20px var(--glow-color),
+        0 0 50px rgba(0, 0, 0, 0.9);
+}
+
+/* Criando cantos de mira holográfica estilo Cockpit da Millennium Falcon */
+.container::before, 
+.container::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--accent-color);
+    border-style: solid;
+    transition: border-color 0.4s ease;
+}
+
+/* Canto superior esquerdo */
+.container::before {
+    top: -8px;
+    left: -8px;
+    border-width: 3px 0 0 3px;
+}
+
+/* Canto inferior direito */
+.container::after {
+    bottom: -8px;
+    right: -8px;
+    border-width: 0 3px 3px 0;
 }
 
 h1 { 
@@ -250,4 +282,34 @@ h1 {
     0% { transform: rotateX(25deg) translateY(100vh); opacity: 1; }
     90% { opacity: 1; }
     100% { transform: rotateX(25deg) translateY(-200vh); opacity: 0; }
+}
+
+/* ===== RODAPÉ INSTITUCIONAL (PRIVACIDADE E LICENCIAMENTO) ===== */
+.app-footer {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    z-index: 10;
+    pointer-events: none; 
+}
+
+.app-footer p {
+    margin: 3px 0;
+    color: #ffffff; /* LETRA BRANCA GARANTIDA EM AMBOS OS MODOS! */
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9); /* Sombra forte para destacar no fundo espacial */
+}
+
+.app-footer a {
+    color: #38bdf8; /* Azul claro brilhante para os links */
+    text-decoration: none;
+    font-weight: bold;
+    pointer-events: auto; 
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
 }

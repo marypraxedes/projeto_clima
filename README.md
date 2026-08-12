@@ -1,47 +1,51 @@
-⛅ Previsão do Tempo - Star Wars Edition ⚔️
+# ⛅ Previsão do Tempo - Star Wars Edition ⚔️
 
-Este é um aplicativo web de previsão do tempo desenvolvido com HTML, CSS e JavaScript puros (Vanilla), criado como projeto prático para o Bootcamp da Generation Brasil. O app consome a Open-Meteo API para fornecer dados climáticos em tempo real de forma ágil e precisa.
+Este é um aplicativo web interativo de previsão do tempo desenvolvido com HTML5, CSS3 e JavaScript puro (Vanilla), construído como projeto prático para o Bootcamp da Generation Brasil. O app consome a **Open-Meteo API** para fornecer dados meteorológicos em tempo real e apresenta uma imersão completa no universo de **Star Wars**.
 
-O grande diferencial deste projeto é o seu tema dinâmico inspirado no universo de Star Wars. O aplicativo alterna automaticamente entre o Lado da Força (Modo Claro/Dia) e o Lado Sombrio (Modo Escuro/Noite) com base no clima atual do local pesquisado. O usuário também tem a liberdade de assumir o controle e alternar o tema manualmente a qualquer momento!
+---
 
-🚀 Funcionalidades
+## 🚀 Funcionalidades e Diferenciais
 
-Busca Precisa: Encontre o clima atual pelo nome da cidade (ou planeta!).
+- **Abertura Cinemática (Star Wars Crawl):** Tela de introdução com a clássica trilha sonora da Marcha Imperial e o letreiro subindo pelo espaço.
+- **Efeitos Sonoros Interativos:** Sons dinâmicos de sabres de luz (Jedi e Sith) ao alternar temas e o grunhido clássico do Chewbacca ao realizar buscas.
+- **Busca Galáctica Avançada:** Pesquisa por qualquer planeta ou cidade da Terra, com tratamento de erros customizado para setores desconhecidos.
+- **Métricas Meteorológicas Completas (Opção 4):** Exibição de temperatura atual (°C), umidade relativa do ar, velocidade do vento e índice de precipitação (chuva).
+- **Tema Dinâmico e Manual:** Alternância automática baseada no horário da cidade consultada (Lado da Força / Dia vs. Lado Sombrio / Noite) ou controle manual via botão com efeitos de neon.
+- **Testes Automatizados:** Suíte completa de testes unitários desenvolvida com **Jest** e Mocks de rede.
 
-Dados Detalhados: Exibição da temperatura em °C, descrição amigável do clima, data atual e localização (Cidade e Estado).
+---
 
-Feedback Visual Dinâmico: Ícones meteorológicos responsivos fornecidos pela biblioteca Weather Icons.
+## 🛠️ Tecnologias Utilizadas
 
-Tema Inteligente: Transição automática entre Modo Claro (Dia) e Modo Escuro (Noite) baseada no atributo is_day retornado pela API.
+- **Frontend:** HTML5 semântico, CSS3 (com variáveis de tema e efeitos de vidro fosco/holográfico) e JavaScript (ES6+).
+- **Requisições HTTP:** `Fetch API` assíncrona (`async/await`).
+- **Testes:** [Jest](https://jestjs.io/) (Testes Unitários).
+- **Bibliotecas Externas:** [Weather Icons](https://erikflowers.github.io/weather-icons/) para representação visual do clima.
+- **Documentação:** Padrão **JSDoc**.
 
-Controle do Usuário: Botão para o usuário assumir o controle e fixar o Lado da Força ou Lado Sombrio.
+---
 
-Tratamento de Exceções: Mensagens de erro amigáveis para cidades inválidas, limite de requisições excedido e falhas de conexão/rede.
+## 📂 Estrutura do Projeto
 
-🛠️ Tecnologias Utilizadas
-
-Frontend: HTML5 semântico, CSS3 (com variáveis de ambiente para temas) e JavaScript (ES6+).
-
-Consumo de API: Fetch API nativa com tratamento de requisições assíncronas (async/await).
-
-Testes Automatizados: Jest para testes unitários simulando (mocking) requisições e respostas HTTP.
-
-Boas Práticas: Código documentado no padrão JSDoc e princípios de Clean Code.
-
-📂 Estrutura do Projeto
-
+```text
 projeto_clima/
 │
+├── audio/
+│   └── imperial_march.mp3  # Trilha sonora de abertura
 ├── css/
-│   └── style.css          # Estilos e variáveis de tema (Jedi/Sith)
+│   └── style.css           # Estilos, variáveis galácticas e animações 3D
 ├── js/
-│   └── api.js             # Lógica de consumo de API e manipulação da DOM
+│   └── api.js              # Lógica de consumo de API e manipulação da DOM
 ├── tests/
-│   └── api.test.js        # Bateria de testes unitários com Jest
-├── .gitignore             # Arquivos ignorados pelo Git
-├── index.html             # Estrutura principal da interface
-├── package.json           # Configurações do Node.js e scripts do Jest
-└── README.md              # Documentação do projeto
+│   └── api.test.js         # Testes automatizados com Jest
+├── .gitignore              # Arquivos ignorados pelo Git
+├── index.html              # Interface principal e tela de abertura
+├── package.json            # Dependências e scripts do Node.js
+├── SECURITY.md             # Política de segurança da aplicação
+├── NOTICE.md               # Atribuições e créditos de terceiros
+├── LICENSE                 # Licença de uso e conformidade (Bilingue)
+└── README.md               # Documentação oficial do projeto
+
 📦 Como rodar o projeto localmente
 Para ver a interface funcionando no seu navegador, você não precisa instalar nada complexo:
 
@@ -71,9 +75,11 @@ npm test
 
 Você deverá ver no terminal um relatório do Jest mostrando que todos os cenários (casos de sucesso, entradas vazias, limite de requisições, etc.) passaram com sucesso. ✅
 
-📝 APIs Utilizadas
-Open-Meteo Geocoding API: Serviço responsável por transformar o nome da cidade digitada em coordenadas geográficas exatas (Latitude e Longitude).
+🔒 Privacidade e Segurança (Auditoria)
+Dados de Localização: A aplicação não armazena permanentemente nenhum dado de localização ou histórico de busca dos usuários (utiliza apenas processamento em memória volátil durante a sessão).
 
-Open-Meteo Forecast API: Serviço que recebe as coordenadas geográficas e retorna os dados meteorológicos precisos e atuais do local.
+Sem Chaves de API Expostas: O serviço utilizado (Open-Meteo) é de acesso público aberto e não requer tokens de autenticação ou chaves privadas (API Keys), eliminando riscos de vazamento de credenciais.
 
-Desenvolvido com muita dedicação e Força para o Bootcamp da Generation Brasil. 🌌🚀
+Tratamento de Exceções: Validação rigorosa de entradas para mitigar comportamentos inesperados do usuário.
+
+Desenvolvido com dedicação para o Bootcamp da Generation Brasil. 🌌🚀
